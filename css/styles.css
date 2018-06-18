@@ -4,6 +4,7 @@
 /* TODO: reformat stylesheet spacing to conform to udacity giuidelines */
 /* TODO: check if css reset (from CDN) set box-sizing:border-box; before diving into layout changes */
 /* TODO: Check colors for accessibility. Adjust palette as needed. Also adjust for aesthetics as needed.*/
+/*TODO: Choose modular scale for type and note it in stylesheet comment*/
 
 /* Variables */
 :root {
