@@ -25,3 +25,97 @@
   --color-accent-primary-darker: #01447e;
   --color-highlight: #f18200;
 }
+
+/******************************************************************************/
+/* Base styles */
+/******************************************************************************/
+
+/* resets */
+
+/*https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/*/
+html {
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+/* QUESTION: Any other common media elements that would benefit from being included here?*/
+#map,
+/*#map-container,*/ img,
+picture,
+figure,
+iframe,
+video,
+svg,
+canvas,
+object {
+  max-width: 100%;
+  height: auto;
+}
+
+/* QUESTION: Why is this collection of elements chosen for this reset? This code is from source file. */
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  margin: 0;
+  background: var(--color-background-primary);
+  font: var(--font-primary);
+  font-weight: normal;
+}
+
+/* Typography */
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+}
+
+h1 {
+  font: calc(var(--font-size-primary) * 1.25) var(--font-family-primary);
+  font-weight: 200;
+  text-transform: uppercase;
+}
+
+/******************************************************************************/
+/* HEADER */
+/******************************************************************************/
+/* NAV */
+
+nav h1 {
+  color: var(--color-white);
+  letter-spacing: 10px;
+}
+
+/******************************************************************************/
+/* MAIN */
+/******************************************************************************/
+
+#map {
+  min-height: 60vh;
+}
+
+#restaurants-list li h1 {
+  color: var(--color-highlight);
+}
