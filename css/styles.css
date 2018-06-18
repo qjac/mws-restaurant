@@ -1,17 +1,16 @@
 /* CSS Document */
 
 /* TODO: refactor css selectors to avoid #ids and duplication*/
-/* TODO: reformat stylesheet spacing to conform to udacity giuidelines */
 /* TODO: Check colors for accessibility. Adjust palette as needed. Also adjust for aesthetics as needed.*/
-/*TODO: Choose modular scale for type and note it in stylesheet comment*/
+/* TODO: Choose modular scale for type? Set vertical rhythm/line-height and note it in stylesheet comment*/
 
 /* Variables */
 :root {
   /*fonts*/
   --font-family-primary: Arial, Helvetica, sans-serif;
-  --font-size-primary: 1rem;
+  /* --font-size-primary: 1rem;  */
   /*--font-line-height-primary: 1rem;*/
-  --font-primary: var(--font-size-primary) var(--font-family-primary);
+  --font-primary: 1rem var(--font-family-primary);
 
   /*colors*/
   --color-background-primary: var(--color-light);
@@ -39,23 +38,9 @@ html {
 }
 
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: inherit;
-}
-
-/* QUESTION: Any other common media elements that would benefit from being included here?*/
-#map,
-/*#map-container,*/ img,
-picture,
-figure,
-iframe,
-video,
-svg,
-canvas,
-object {
-  max-width: 100%;
-  height: auto;
 }
 
 /* QUESTION: Why is this collection of elements chosen for this reset? This code is from source file. */
@@ -74,6 +59,23 @@ section {
   display: block;
 }
 
+/* QUESTION: Any other common media elements that would benefit from being included here?*/
+#map,
+/*#map-container,*/ img,
+picture,
+figure,
+iframe,
+video,
+svg,
+canvas,
+object {
+  max-width: 100%;
+  height: auto;
+}
+a img {
+  border: none 0 var(--color-white);
+}
+
 body {
   margin: 0;
   background: var(--color-background-primary);
@@ -82,20 +84,37 @@ body {
 }
 
 /* Typography */
-
+/* currently only h1 and h2 are in use. other headers will take p styles until set.*/
 p,
-h1,
-h2,
 h3,
 h4,
 h5,
 h6 {
+  font: var(--font-primary);
+  color: var(--color-text-primary);
+  /*line-height: 1.5;*/
 }
 
 h1 {
-  font: calc(var(--font-size-primary) * 1.25) var(--font-family-primary);
+  font: 1.5rem var(--font-family-primary);
   font-weight: 200;
   text-transform: uppercase;
+}
+
+h2 {
+  font: 1.25rem var(--font-family-primary);
+}
+
+a {
+  color: var(--color-highlight);
+  /* added underline for additional link cue so it's not color only */
+  text-decoration: underline var(--color-mid) solid;
+}
+a:hover,
+a:focus,
+a:active {
+  color: var(--color-accent-primary);
+  text-decoration: none;
 }
 
 /******************************************************************************/
@@ -103,9 +122,28 @@ h1 {
 /******************************************************************************/
 /* NAV */
 
-nav h1 {
+nav h1 a {
   color: var(--color-white);
+  /*font-size: 14pt;*/
+  font-weight: 200;
   letter-spacing: 10px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* restaurant.html */
+/* Add a color to all links inside the list */
+#breadcrumb li a {
+  color: var(--color-accent-primary);
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+#breadcrumb li a:hover,
+#breadcrumb li a:active,
+#breadcrumb li a:focus {
+  color: var(--color-accent-primary-darker);
+  text-decoration: underline;
 }
 
 /******************************************************************************/
@@ -116,6 +154,39 @@ nav h1 {
   min-height: 60vh;
 }
 
+/* index.html */
+/*.filter-options    the dropdowns */
+.filter-options h2 {
+  color: var(--color-white);
+  font-size: 1rem;
+  /*line-height: 1;*/
+}
+
+/* restaurant list  */
+
 #restaurants-list li h1 {
   color: var(--color-highlight);
+}
+
+#restaurants-list li a {
+  background-color: var(--color-highlight);
+  border-bottom: 3px solid var(--color-white);
+  color: var(--color-white);
+  /*display: inline-block;*/
+  /* font-size: var(--font-size-primary); */
+  /*font-size: 10pt;*/
+  /*margin: 15px 0 0;
+  padding: 8px 30px 10px;
+  text-align: center;*/
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* restaurant.html */
+/* reviews container */
+#reviews-container h2 {
+  font-size: 2rem;
+  color: var(--color-highlight);
+  font-weight: 300;
+  letter-spacing: -1px;
 }
