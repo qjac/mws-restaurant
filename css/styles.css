@@ -11,7 +11,10 @@
   /* --font-size-primary: 1rem;  */
   /*--font-line-height-primary: 1rem;*/
   --font-primary: 1rem var(--font-family-primary);
+  /* line-height-multiplier for vertical spacing:  margins, padding, line-height; */
+  --line-height-spacer: 1.5;
 
+  --horizontal-spacer: 5%;
   /*colors*/
   --color-background-primary: var(--color-light);
   --color-text-primary: var(--color-dark);
@@ -76,13 +79,6 @@ a img {
   border: none 0 var(--color-white);
 }
 
-body {
-  margin: 0;
-  background: var(--color-background-primary);
-  font: var(--font-primary);
-  font-weight: normal;
-}
-
 /* Typography */
 /* currently only h1 and h2 are in use. other headers will take p styles until set.*/
 p,
@@ -92,17 +88,22 @@ h5,
 h6 {
   font: var(--font-primary);
   color: var(--color-text-primary);
-  /*line-height: 1.5;*/
+  line-height: var(--line-height-spacer);
+  margin: 0;
 }
 
 h1 {
   font: 1.5rem var(--font-family-primary);
   font-weight: 200;
+  line-height: calc(var(--line-height-spacer) * 0.75 * 1em);
   text-transform: uppercase;
+  margin: 0;
 }
 
 h2 {
   font: 1.25rem var(--font-family-primary);
+  ine-height: calc(var(--line-height-spacer) * 0.75 * 1em);
+  margin: 0;
 }
 
 a {
@@ -117,14 +118,31 @@ a:active {
   text-decoration: none;
 }
 
+body {
+  margin: 0;
+  background: var(--color-background-primary);
+  font: var(--font-primary);
+  font-weight: normal;
+}
+
+nav,
+section:not(#map-container),
+footer {
+  padding: calc(var(--line-height-spacer) * 1rem) var(--horizontal-spacer);
+}
+
 /******************************************************************************/
 /* HEADER */
 /******************************************************************************/
 /* NAV */
+nav {
+  min-height: 80px;
+  background-color: var(--color-black);
+  text-align: center;
+}
 
 nav h1 a {
   color: var(--color-white);
-  /*font-size: 14pt;*/
   font-weight: 200;
   letter-spacing: 10px;
   text-transform: uppercase;
@@ -132,6 +150,27 @@ nav h1 a {
 }
 
 /* restaurant.html */
+/* breadcrumbs */
+#breadcrumb {
+  padding: calc(var(--line-height-spacer) * 0.75rem) var(--horizontal-spacer);
+  list-style: none;
+  background-color: var(--color-white);
+  font-size: calc(var(--font-size-primary) * 1.5);
+  margin: 0;
+}
+
+/* Display list items side by side */
+#breadcrumb li {
+  display: inline;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+#breadcrumb li + li:before {
+  padding: 0 0.5em;
+  color: var(--color-black);
+  content: '/\00a0';
+}
+
 /* Add a color to all links inside the list */
 #breadcrumb li a {
   color: var(--color-accent-primary);
@@ -145,6 +184,8 @@ nav h1 a {
   color: var(--color-accent-primary-darker);
   text-decoration: underline;
 }
+
+/* end HEADER */
 
 /******************************************************************************/
 /* MAIN */
