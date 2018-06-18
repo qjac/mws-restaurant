@@ -102,7 +102,7 @@ h1 {
 
 h2 {
   font: 1.25rem var(--font-family-primary);
-  ine-height: calc(var(--line-height-spacer) * 0.75 * 1em);
+  line-height: calc(var(--line-height-spacer) * 0.75 * 1em);
   margin: 0;
 }
 
@@ -126,10 +126,16 @@ body {
 }
 
 nav,
-section:not(#map-container),
+#restaurants-list,
+#restaurant-container,
+#reviews-container,
 footer {
   padding: calc(var(--line-height-spacer) * 1rem) var(--horizontal-spacer);
 }
+
+/* grid */
+
+/* end BASE styles */
 
 /******************************************************************************/
 /* HEADER */
@@ -165,7 +171,7 @@ nav h1 a {
 }
 
 /* Add a slash symbol (/) before/behind each list item */
-#breadcrumb li + li:before {
+#breadcrumb li + li::before {
   padding: 0 0.5em;
   color: var(--color-black);
   content: '/\00a0';
@@ -190,21 +196,43 @@ nav h1 a {
 /******************************************************************************/
 /* MAIN */
 /******************************************************************************/
+main {
+  background-color: var(--color-white);
+}
 
+/* ====================== Map ====================== */
 #map {
   min-height: 60vh;
+  background-color: var(--color-light);
 }
 
 /* index.html */
-/*.filter-options    the dropdowns */
+/* ====================== Restaurant Filtering ====================== */
+.filter-options {
+  padding: calc(var(--line-height-spacer) * 1rem) var(--horizontal-spacer);
+  background-color: var(--color-accent-primary);
+  display: grid;
+  grid-template-columns: minmax(min-content, 15rem) minmax(min-content, 15rem);
+  gap: 5%;
+  align-items: center;
+  justify-content: center;
+}
 .filter-options h2 {
   color: var(--color-white);
   font-size: 1rem;
-  /*line-height: 1;*/
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: calc(var(--line-height-spacer) * 0.5rem);
+}
+.filter-options select {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-white);
+  font: var(--font-primary);
+  letter-spacing: 0;
+  padding: 0 0.25em;
 }
 
-/* restaurant list  */
-
+/* ====================== restaurant list ====================== */
 #restaurants-list li h1 {
   color: var(--color-highlight);
 }
