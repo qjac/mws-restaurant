@@ -1,6 +1,6 @@
 /* CSS Document */
-
-/* TODO: refactor css selectors to avoid #ids and duplication*/
+/* TODO: style .inside page grid. make it cool */
+/* TODO: adjust map styles so it isn't covered by header*/
 /* TODO: Check colors for accessibility. Adjust palette as needed. Also adjust for aesthetics as needed.*/
 /* TODO: Choose modular scale for type? Set vertical rhythm/line-height and note it in stylesheet comment*/
 
@@ -145,7 +145,7 @@ footer {
 #reviews-container {
   /* margin/padding set to match nav and footer padding */
   /* we want margin collapse on top/bottom of main sections */
-  margin: calc(var(--line-height-spacer) * 1rem) 0;
+  margin: calc(var(--line-height-spacer) * 1rem) 0 0;
   padding: 0 var(--horizontal-spacer) calc(var(--line-height-spacer) * 1rem);
   border-bottom: 1px solid var(--color-white);
 }
@@ -349,7 +349,7 @@ main {
 
 #reviews-container li p {
   padding: calc(var(--line-height-spacer) * 0.75 * 1rem);
-  color: var(--color-white);
+  color: var(--color-light);
 }
 
 /* name field */
@@ -387,4 +387,16 @@ main {
   grid-area: review-content;
   color: var(--color-primary-text);
   padding-top: 0;
+}
+
+/******************************************************************************/
+/* FOOTER */
+/******************************************************************************/
+footer {
+  color: var(--color-light);
+  background-color: var(--color-dark);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
 }
