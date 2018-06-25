@@ -145,7 +145,8 @@ footer {
   /* margin/padding set to match nav and footer padding */
   /* we want margin collapse on top/bottom of main sections */
   margin: calc(var(--line-height-spacer) * 1rem) 0;
-  padding: 0 var(--horizontal-spacer);
+  padding: 0 var(--horizontal-spacer) calc(var(--line-height-spacer) * 1rem);
+  border-bottom: 1px solid var(--color-white);
 }
 
 /* end BASE styles */
@@ -317,6 +318,12 @@ main {
 #restaurant-address {
   font-size: calc(var(--font-size-primary) * 1.1);
   margin-bottom: calc(var(--line-height-spacer) * 0.5 * 1rem);
+}
+
+#restaurant-container,
+#reviews-container {
+  /*padding: 140px 40px 30px;*/
+  /*width: 50%;*/
 }
 
 /* ===== restaurant.html ========== reviews container ======================= */
