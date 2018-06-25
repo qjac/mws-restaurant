@@ -129,14 +129,18 @@ body {
 }
 
 nav,
-#restaurants-list,
-#restaurant-container,
-#reviews-container,
 footer {
   padding: calc(var(--line-height-spacer) * 1rem) var(--horizontal-spacer);
 }
 
-/* grid */
+#restaurants-list,
+#restaurant-container,
+#reviews-container {
+  /* margin/padding set to match nav and footer padding */
+  /* we want margin collapse on top/bottom of main sections */
+  margin: calc(var(--line-height-spacer) * 1rem) 0;
+  padding: 0 var(--horizontal-spacer);
+}
 
 /* end BASE styles */
 
@@ -277,7 +281,18 @@ main {
   border-radius: 2px;
 }
 
-/* restaurant.html */
+/* restaurant.html  has body class .inside*/
+/* ===== restaurant.html ========== restaurant container ======================= */
+#restaurant-container h1 {
+  color: var(--color-highlight);
+  font-weight: 200;
+  margin: calc(var(--line-height-spacer) * 1.5 * 1rem) 0;
+}
+
+#restaurant-container img {
+  border-radius: calc(var(--line-height-spacer) * 1.5 * 1rem) 2px;
+  padding-bottom: calc(var(--line-height-spacer) * 0.25 * 1rem);
+}
 /* ===== restaurant.html ========== reviews container ======================= */
 #reviews-container h2 {
   font-size: 2rem;
