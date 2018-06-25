@@ -12,6 +12,8 @@
   /*--font-line-height-primary: 1rem;*/
   --font-primary: 1rem var(--font-family-primary);
   /* line-height-multiplier for vertical spacing:  margins, padding, line-height; */
+  font-weight: 200;
+  /* line-height spacer is the multiplier to keep everything in rhythm */
   --line-height-spacer: 1.5;
 
   --horizontal-spacer: 5%;
@@ -94,7 +96,7 @@ h6 {
 
 h1 {
   font: 1.5rem var(--font-family-primary);
-  font-weight: 200;
+  /* variable line-height spacer * a fraction of spacer to apply * 1em to give it a unit */
   line-height: calc(var(--line-height-spacer) * 0.75 * 1em);
   text-transform: uppercase;
   margin: 0;
@@ -102,6 +104,7 @@ h1 {
 
 h2 {
   font: 1.25rem var(--font-family-primary);
+  /* variable line-height spacer * a fraction of spacer to apply * 1em to give it a unit */
   line-height: calc(var(--line-height-spacer) * 0.75 * 1em);
   margin: 0;
 }
@@ -197,29 +200,30 @@ nav h1 a {
 /* MAIN */
 /******************************************************************************/
 main {
-  background-color: var(--color-white);
+  background-color: var(--color-light);
 }
 
-/* ====================== Map ====================== */
+/* ================================= Map ==================================== */
 #map {
   min-height: 60vh;
   background-color: var(--color-light);
 }
 
 /* index.html */
-/* ====================== Restaurant Filtering ====================== */
+/*===== index.html ============= Restaurant Filtering ======================= */
 .filter-options {
   padding: calc(var(--line-height-spacer) * 1rem) var(--horizontal-spacer);
   background-color: var(--color-accent-primary);
   display: grid;
   grid-template-columns: minmax(min-content, 15rem) minmax(min-content, 15rem);
-  gap: 5%;
+
+  gap: calc(var(--line-height-spacer) * 0.25 * 1rem) var(--horizontal-spacer);
   align-items: center;
   justify-content: center;
 }
 .filter-options h2 {
   color: var(--color-white);
-  font-size: 1rem;
+  font-size: 1.1rem;
   grid-column: 1 / -1;
   text-align: center;
   margin-bottom: calc(var(--line-height-spacer) * 0.5rem);
@@ -232,27 +236,48 @@ main {
   padding: 0 0.25em;
 }
 
-/* ====================== restaurant list ====================== */
+/* ===== index.html ================= restaurant list ======================= */
+/*  ul that holds the index page li's - each li holds info on a single restaurant */
+#restaurants-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min-content, 20rem));
+  /* row gap: variable line-height spacer * a fraction of spacer to apply * 1em to give it a unit */
+  /* column-gap same to keep spacing around li's "square" */
+  gap: calc(var(--line-height-spacer) * 1 * 1rem);
+  justify-content: center;
+}
+
+#restaurants-list li {
+  background: var(--color-white);
+  /*variable line-height spacer * a fraction of spacer to apply * 1em to give it a unit */
+  padding: calc(var(--line-height-spacer) * 0.75 * 1rem);
+  border-radius: calc(var(--line-height-spacer) * 1.5 * 1rem) 2px;
+}
+
+#restaurants-list li img {
+  /* the 1.1 is finessed ~a magic number~ to fit with border-radius of container */
+  border-radius: calc(var(--line-height-spacer) * 1.1 * 1rem) 2px;
+  padding-bottom: calc(var(--line-height-spacer) * 0.25 * 1rem);
+}
+
 #restaurants-list li h1 {
   color: var(--color-highlight);
 }
-
+#restaurants-list li p:last-of-type {
+  margin-bottom: calc(var(--line-height-spacer) * 0.5 * 1rem);
+}
 #restaurants-list li a {
   background-color: var(--color-highlight);
   border-bottom: 3px solid var(--color-white);
   color: var(--color-white);
-  /*display: inline-block;*/
-  /* font-size: var(--font-size-primary); */
-  /*font-size: 10pt;*/
-  /*margin: 15px 0 0;
-  padding: 8px 30px 10px;
-  text-align: center;*/
   text-decoration: none;
   text-transform: uppercase;
+  padding: calc(var(--line-height-spacer) * 0.25 * 1rem) 1em;
 }
 
 /* restaurant.html */
-/* reviews container */
+/* ===== restaurant.html ========== reviews container ======================= */
 #reviews-container h2 {
   font-size: 2rem;
   color: var(--color-highlight);
