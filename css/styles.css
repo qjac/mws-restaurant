@@ -323,16 +323,68 @@ main {
   margin-bottom: calc(var(--line-height-spacer) * 0.5 * 1rem);
 }
 
-#restaurant-container,
-#reviews-container {
-  /*padding: 140px 40px 30px;*/
-  /*width: 50%;*/
-}
-
 /* ===== restaurant.html ========== reviews container ======================= */
 #reviews-container h2 {
   font-size: 2rem;
   color: var(--color-highlight);
   font-weight: 300;
   letter-spacing: -1px;
+}
+
+#reviews-container ul {
+  padding: 0;
+}
+
+#reviews-container li {
+  background-color: var(--color-white);
+  border-radius: calc(var(--line-height-spacer) * 1.5 * 1rem) 2px;
+  margin-bottom: calc(var(--line-height-spacer) * 0.5 * 1rem);
+  list-style-type: none;
+  display: grid;
+  grid-template-areas:
+    ' reviewer-name  review-date '
+    'review-rating review-rating'
+    ' review-content review-content';
+}
+
+#reviews-container li p {
+  padding: calc(var(--line-height-spacer) * 0.75 * 1rem);
+  color: var(--color-white);
+}
+
+/* name field */
+#reviews-container li p:first-of-type {
+  font-size: 1.5em;
+  border-radius: calc(var(--line-height-spacer) * 1.5 * 1rem) 0 0 2px;
+  grid-area: reviewer-name;
+  background-color: var(--color-dark);
+}
+
+/* date field */
+#reviews-container li p:nth-of-type(0n + 2) {
+  grid-area: review-date;
+  border-radius: 0 2px calc(var(--line-height-spacer) * 1.5 * 1rem) 0;
+  background-color: var(--color-dark);
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* rating field */
+#reviews-container li p:nth-of-type(0n + 3) {
+  grid-area: review-rating;
+  background-color: var(--color-highlight);
+  justify-self: start;
+  text-transform: uppercase;
+  margin: calc(var(--line-height-spacer) * 0.75 * 1rem);
+  padding: calc(var(--line-height-spacer) * 0.25 * 1rem) 1em;
+  border-radius: 2px;
+}
+
+/* review content field */
+#reviews-container li p:nth-of-type(0n + 4) {
+  grid-area: review-content;
+  color: var(--color-primary-text);
+  padding-top: 0;
 }
