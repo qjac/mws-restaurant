@@ -131,6 +131,7 @@ body {
 header {
   width: 100%;
   position: fixed;
+  top: 0;
   z-index: 10000; /* high z-index needed to override mapbox z-index*/
 }
 
@@ -216,7 +217,9 @@ main {
 
 /* ================================= Map ==================================== */
 #map {
-  min-height: 40vh;
+  margin-top: 80px; /* 80px comes from the approx size of the header ish */
+  min-height: calc(50vh - (80px/2));
+  /* /2 we want map to look like it takes up half of page vertically minus the header*/
   background-color: var(--color-light);
 }
 
