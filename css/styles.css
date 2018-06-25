@@ -1,6 +1,5 @@
 /* CSS Document */
 /* TODO: style .inside page grid. make it cool */
-/* TODO: adjust map styles so it isn't covered by header*/
 /* TODO: Check colors for accessibility. Adjust palette as needed. Also adjust for aesthetics as needed.*/
 /* TODO: Choose modular scale for type? Set vertical rhythm/line-height and note it in stylesheet comment*/
 
@@ -337,7 +336,7 @@ main {
 #reviews-container li {
   background-color: var(--color-white);
   border-radius: calc(var(--line-height-spacer) * 1.5 * 1rem) 2px;
-  margin-bottom: calc(var(--line-height-spacer) * 0.5 * 1rem);
+  margin-bottom: calc(var(--line-height-spacer) * 1 * 1rem);
   list-style-type: none;
   display: grid;
   grid-template-areas:
