@@ -128,6 +128,12 @@ body {
   font-weight: normal;
 }
 
+header {
+  width: 100%;
+  position: fixed;
+  z-index: 10000; /* high z-index needed to override mapbox z-index*/
+}
+
 nav,
 footer {
   padding: calc(var(--line-height-spacer) * 1rem) var(--horizontal-spacer);
@@ -293,6 +299,7 @@ main {
   border-radius: calc(var(--line-height-spacer) * 1.5 * 1rem) 2px;
   padding-bottom: calc(var(--line-height-spacer) * 0.25 * 1rem);
 }
+
 /* ===== restaurant.html ========== reviews container ======================= */
 #reviews-container h2 {
   font-size: 2rem;
