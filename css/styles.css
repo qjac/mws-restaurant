@@ -300,6 +300,20 @@ main {
   padding-bottom: calc(var(--line-height-spacer) * 0.25 * 1rem);
 }
 
+#restaurant-cuisine {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  font-size: calc(var(--font-size-primary) * 1.1);
+  font-weight: 400;
+  letter-spacing: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  padding: calc(var(--line-height-spacer) * 0.25 * 1rem) 1em;
+  /* opposite border radius of img */
+  border-radius: 2px calc(var(--line-height-spacer) * 1.5 * 1rem);
+  margin-bottom: calc(var(--line-height-spacer) * 0.5 * 1rem);
+}
+
 /* ===== restaurant.html ========== reviews container ======================= */
 #reviews-container h2 {
   font-size: 2rem;
