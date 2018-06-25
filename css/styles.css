@@ -314,6 +314,11 @@ main {
   margin-bottom: calc(var(--line-height-spacer) * 0.5 * 1rem);
 }
 
+#restaurant-address {
+  font-size: calc(var(--font-size-primary) * 1.1);
+  margin-bottom: calc(var(--line-height-spacer) * 0.5 * 1rem);
+}
+
 /* ===== restaurant.html ========== reviews container ======================= */
 #reviews-container h2 {
   font-size: 2rem;
