@@ -147,7 +147,6 @@ footer {
   /* we want margin collapse on top/bottom of main sections */
   margin: calc(var(--line-height-spacer) * 1rem) 0 0;
   padding: 0 var(--horizontal-spacer) calc(var(--line-height-spacer) * 1rem);
-  /* border-bottom: 1px solid var(--color-white); */
 }
 
 /* end BASE styles */
@@ -294,34 +293,26 @@ main {
 /* restaurant.html  has body class .inside*/
 @media screen and (min-width: 50rem) {
   .inside main {
-    /* padding to amtch footer and nav margins/padding */
+    /* padding to match footer and nav margins/padding */
     padding: calc(var(--line-height-spacer) * 1rem) var(--horizontal-spacer);
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: min-content;
-    /* grid-template-columns: auto 1fr 1fr auto; */
-    /* gap: calc(var(--horizontal-spacer)/2); */
     gap: 2%;
     /* if you change gap, change the horizontal spacing of #restaurant-container grid */
-    /*     grid-template-areas:
-      '. restaurant-container restaurant-container .'
-      '. reviews-container map-container .'; */
-    max-width: 75rem;
+    max-width: 90rem;
     margin-right: auto;
     margin-left: auto;
   }
 
   #restaurant-container {
-    /* grid-area: restaurant-container; */
     margin: 0;
     padding: 0;
     grid-column: 1/3;
     grid-row: 1/2;
-    /* max-height: min-content; */
   }
 
   #reviews-container {
-    /* grid-area: reviews-container; */
     margin: 0;
     padding: 0;
     grid-column: 1/2;
@@ -329,11 +320,13 @@ main {
   }
 
   #map-container {
-    /* grid-area: map-container; */
-    /* margin: 0; */
-    /* padding: 0; */
     grid-column: 2/3;
     grid-row: 2/3;
+    display: grid;
+  }
+
+  #map {
+    border-radius: calc(var(--line-height-spacer) * 1.1 * 1rem) 2px;
   }
 }
 /* ===== restaurant.html ========== restaurant container ======================= */
@@ -372,16 +365,17 @@ main {
   margin: 0 auto;
 }
 
-/* grid starting at 25rem ... great candidate for future subgrid refactor*/
-@media screen and (min-width: 37.5rem) {
+/* grid starting at 37.5 ... great candidate for future subgrid refactor*/
+@media screen and (min-width: 45rem) {
   #restaurant-container {
-    /* display: grid; */
+    display: grid;
     gap: 2%;
-    /* gap: calc(var(--line-height-spacer) * 0.25 * 1rem) calc(var(--horizontal-spacer)/2); */
-    /* grid-template-columns: 50% minmax(max-content, 50%); */
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
+    /* grid-template-rows: auto; */
     justify-content: center;
+    /* align-content: center; */
+    /* max-height: 50vh; */
+    padding-bottom: 2%;
   }
 
   #restaurant-container h1 {
@@ -406,31 +400,38 @@ main {
     grid-row: 1/5;
     padding: 0;
 
-    -ms-justify-self: stretch;
-    align-self: stretch;
-    object-fit: cover;
+    /*  -ms-justify-self: stretch;
+    align-self: stretch; */
+    /* object-fit: cover; */
     border-radius: calc(var(--line-height-spacer) * 1.5 * 1rem) 2px;
     /* overflow: hidden; */
+    display: grid;
+    -o-object-fit: cover;
+    object-fit: cover;
+    min-height: 100%;
+    width: auto;
   }
   #restaurant-cuisine {
     -ms-grid-column: 2/3;
     grid-column: 2/3;
     -ms-grid-row: 2/3;
     grid-row: 2/3;
-    margin-bottom: 0;
+    /* margin-bottom: 0; */
     color: var(--color-dark);
     background: none;
   }
   #restaurant-address {
     -ms-grid-column: 2/3;
     grid-column: 2/3;
-    margin-bottom: 0;
+    /* margin-bottom: 0; */
   }
 
   #restaurant-hours {
     -ms-grid-column: 2/3;
     grid-column: 2/3;
-    margin-bottom: calc(var(--line-height-spacer) * 0.5 * 1rem);
+    -ms-align-self: start;
+    align-self: start;
+    /* margin-bottom: calc(var(--line-height-spacer) * 0.5 * 1rem); */
   }
 } /* end media query */
 
@@ -439,6 +440,8 @@ main {
   max-width: 37.5em;
   margin-left: auto;
   margin-right: auto;
+  padding-top: calc(var(--line-height-spacer) * 0.75 * 1rem);
+  border-top: 1px solid var(--color-white);
 }
 
 #reviews-container h2 {
