@@ -319,11 +319,74 @@ main {
 #restaurant-address {
   font-size: calc(var(--font-size-primary) * 1.1);
   margin-bottom: calc(var(--line-height-spacer) * 0.5 * 1rem);
+  text-align: center;
 }
+
+#restaurant-hours {
+  margin: 0 auto;
+}
+
+/* grid starting at 25rem ... great candidate for future subgrid refactor*/
+@media screen and (min-width: 37.5rem) {
+  #restaurant-container {
+    display: grid;
+    gap: calc(var(--line-height-spacer) * 0.25 * 1rem) calc(var(--horizontal-spacer)/2);
+    grid-template-columns: 50% minmax(max-content, 50%);
+    grid-template-rows: auto;
+    justify-content: center;
+  }
+
+  #restaurant-container h1 {
+    -ms-grid-column: 2/3;
+    grid-column: 2/3;
+    -ms-grid-row: 1/2;
+    grid-row: 1/2;
+    margin: 0;
+    -ms-align-self: start;
+    align-self: start;
+    background-color: var(--color-accent-primary-darker);
+    color: var(--color-white);
+    text-align: center;
+    padding: calc(var(--line-height-spacer) * 0.25 * 1rem) 1em;
+    border-radius: 2px calc(var(--line-height-spacer) * 1.5 * 1rem);
+  }
+
+  #restaurant-container img {
+    -ms-grid-column: 1/2;
+    grid-column: 1/2;
+    grid-row: 1/5;
+    padding: 0;
+
+    -ms-justify-self: stretch;
+    align-self: stretch;
+    object-fit: cover;
+    border-radius: calc(var(--line-height-spacer) * 1.5 * 1rem) 2px;
+  }
+  #restaurant-cuisine {
+    -ms-grid-column: 2/3;
+    grid-column: 2/3;
+    -ms-grid-row: 2/3;
+    grid-row: 2/3;
+    margin-bottom: 0;
+    color: var(--color-dark);
+    background: none;
+  }
+  #restaurant-address {
+    -ms-grid-column: 2/3;
+    grid-column: 2/3;
+    margin-bottom: 0;
+  }
+
+  #restaurant-hours {
+    -ms-grid-column: 2/3;
+    grid-column: 2/3;
+    margin-bottom: calc(var(--line-height-spacer) * 0.5 * 1rem);
+  }
+} /* end media query */
 
 /* ===== restaurant.html ========== reviews container ======================= */
 #reviews-container h2 {
-  font-size: 2rem;
+  font-size: 1.75rem;
   color: var(--color-highlight);
   font-weight: 300;
   letter-spacing: -1px;
