@@ -339,6 +339,8 @@ main {
 #restaurant-container img {
   border-radius: calc(var(--line-height-spacer) * 1.5 * 1rem) 2px;
   padding-bottom: calc(var(--line-height-spacer) * 0.25 * 1rem);
+  min-width: 100%;
+  min-height: 100%;
 }
 
 #restaurant-cuisine {
@@ -408,8 +410,6 @@ main {
     display: grid;
     -o-object-fit: cover;
     object-fit: cover;
-    min-height: 100%;
-    width: auto;
   }
   #restaurant-cuisine {
     -ms-grid-column: 2/3;
