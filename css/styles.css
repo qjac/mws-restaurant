@@ -75,6 +75,7 @@ canvas,
 object {
   max-width: 100%;
   height: auto;
+  max-height: 100%;
 }
 a img {
   border: none 0 var(--color-white);
@@ -146,7 +147,7 @@ footer {
   /* we want margin collapse on top/bottom of main sections */
   margin: calc(var(--line-height-spacer) * 1rem) 0 0;
   padding: 0 var(--horizontal-spacer) calc(var(--line-height-spacer) * 1rem);
-  border-bottom: 1px solid var(--color-white);
+  /* border-bottom: 1px solid var(--color-white); */
 }
 
 /* end BASE styles */
@@ -218,6 +219,7 @@ main {
 #map {
   /* /2 we want map to look like it takes up half of page vertically minus the header*/
   /* 137px is the min size of .inside header */
+  width: 100%;
   min-height: calc(50vh - (137px/2));
 }
 
@@ -290,6 +292,50 @@ main {
 }
 
 /* restaurant.html  has body class .inside*/
+@media screen and (min-width: 50rem) {
+  .inside main {
+    /* padding to amtch footer and nav margins/padding */
+    padding: calc(var(--line-height-spacer) * 1rem) var(--horizontal-spacer);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: min-content;
+    /* grid-template-columns: auto 1fr 1fr auto; */
+    /* gap: calc(var(--horizontal-spacer)/2); */
+    gap: 2%;
+    /* if you change gap, change the horizontal spacing of #restaurant-container grid */
+    /*     grid-template-areas:
+      '. restaurant-container restaurant-container .'
+      '. reviews-container map-container .'; */
+    max-width: 75rem;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  #restaurant-container {
+    /* grid-area: restaurant-container; */
+    margin: 0;
+    padding: 0;
+    grid-column: 1/3;
+    grid-row: 1/2;
+    /* max-height: min-content; */
+  }
+
+  #reviews-container {
+    /* grid-area: reviews-container; */
+    margin: 0;
+    padding: 0;
+    grid-column: 1/2;
+    grid-row: 2/3;
+  }
+
+  #map-container {
+    /* grid-area: map-container; */
+    /* margin: 0; */
+    /* padding: 0; */
+    grid-column: 2/3;
+    grid-row: 2/3;
+  }
+}
 /* ===== restaurant.html ========== restaurant container ======================= */
 #restaurant-container h1 {
   color: var(--color-highlight);
@@ -329,9 +375,11 @@ main {
 /* grid starting at 25rem ... great candidate for future subgrid refactor*/
 @media screen and (min-width: 37.5rem) {
   #restaurant-container {
-    display: grid;
-    gap: calc(var(--line-height-spacer) * 0.25 * 1rem) calc(var(--horizontal-spacer)/2);
-    grid-template-columns: 50% minmax(max-content, 50%);
+    /* display: grid; */
+    gap: 2%;
+    /* gap: calc(var(--line-height-spacer) * 0.25 * 1rem) calc(var(--horizontal-spacer)/2); */
+    /* grid-template-columns: 50% minmax(max-content, 50%); */
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
     justify-content: center;
   }
@@ -349,6 +397,7 @@ main {
     text-align: center;
     padding: calc(var(--line-height-spacer) * 0.25 * 1rem) 1em;
     border-radius: 2px calc(var(--line-height-spacer) * 1.5 * 1rem);
+    /* word-wrap: break-word; */
   }
 
   #restaurant-container img {
@@ -361,6 +410,7 @@ main {
     align-self: stretch;
     object-fit: cover;
     border-radius: calc(var(--line-height-spacer) * 1.5 * 1rem) 2px;
+    /* overflow: hidden; */
   }
   #restaurant-cuisine {
     -ms-grid-column: 2/3;
@@ -385,6 +435,12 @@ main {
 } /* end media query */
 
 /* ===== restaurant.html ========== reviews container ======================= */
+#reviews-container {
+  max-width: 37.5em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #reviews-container h2 {
   font-size: 1.75rem;
   color: var(--color-highlight);
@@ -460,4 +516,5 @@ footer {
   letter-spacing: 1px;
   text-align: center;
   text-transform: uppercase;
+  margin-top: calc(var(--line-height-spacer) * 1 * 1rem);
 }
