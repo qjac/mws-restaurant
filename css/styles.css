@@ -249,18 +249,18 @@ main {
 /*  ul that holds the index page li's - each li holds info on a single restaurant */
 #restaurants-list {
   list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min-content, 20rem));
-  /* row gap: variable line-height spacer * a fraction of spacer to apply * 1em to give it a unit */
-  /* column-gap same to keep spacing around li's "square" */
-  gap: calc(var(--line-height-spacer) * 1 * 1rem);
+  display: flex;
+  flex-flow: row wrap;
   justify-content: center;
 }
 
 #restaurants-list li {
+  flex-grow: 1;
+  flex-basis: 25rem;
   background: var(--color-white);
   /*variable line-height spacer * a fraction of spacer to apply * 1em to give it a unit */
   padding: calc(var(--line-height-spacer) * 0.75 * 1rem);
+  margin: calc(var(--line-height-spacer) * 0.5 * 1rem);
   border-radius: calc(var(--line-height-spacer) * 1.5 * 1rem) 2px;
 }
 
