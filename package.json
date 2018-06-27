@@ -1,0 +1,19 @@
+{
+  "name": "mws-restaurant-stage-1",
+  "version": "1.0.0",
+  "description": "Udacity MWS Restaurant App project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qjac/mws-restaurant-stage-1.git"
+  },
+  "author": "Jacqueline Quintanilla",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qjac/mws-restaurant-stage-1/issues"
+  },
+  "homepage": "https://github.com/qjac/mws-restaurant-stage-1#readme"
+}
