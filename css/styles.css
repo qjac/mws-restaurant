@@ -331,7 +331,7 @@ main {
 @media screen and (min-width: 45rem) {
   #restaurant-container {
     display: grid;
-    gap: 2%;
+    gap: 2rem;
     grid-template-columns: 1fr 1fr;
     justify-content: center;
     padding-bottom: 2%;
@@ -464,7 +464,7 @@ main {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: min-content;
-    gap: 2%;
+    gap: 2rem;
     /* if you change gap, change the horizontal spacing of #restaurant-container grid */
     max-width: 90rem;
     margin-right: auto;
