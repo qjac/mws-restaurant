@@ -249,14 +249,12 @@ main {
 /*  ul that holds the index page li's - each li holds info on a single restaurant */
 #restaurants-list {
   list-style: none;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
+  display: grid;
+  -ms-grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
 }
 
 #restaurants-list li {
-  flex-grow: 1;
-  flex-basis: 25rem;
   background: var(--color-white);
   /*variable line-height spacer * a fraction of spacer to apply * 1em to give it a unit */
   padding: calc(var(--line-height-spacer) * 0.75 * 1rem);
@@ -275,7 +273,7 @@ main {
 }
 
 #restaurants-list li p:last-of-type {
-  margin-bottom: calc(var(--line-height-spacer) * 0.5 * 1rem);
+  padding-bottom: calc(var(--line-height-spacer) * 1* 1rem);
 }
 
 #restaurants-list li a {
@@ -284,7 +282,7 @@ main {
   color: var(--color-white);
   text-decoration: none;
   text-transform: uppercase;
-  padding: calc(var(--line-height-spacer) * 0.25 * 1rem) 1em;
+  padding: calc(var(--line-height-spacer) * 0.5 * 1rem) 1em;
   border-radius: 2px;
 }
 
