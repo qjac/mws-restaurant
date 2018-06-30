@@ -250,8 +250,8 @@ main {
 #restaurants-list {
   list-style: none;
   display: grid;
-  -ms-grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
-  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+  -ms-grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
 }
 
 #restaurants-list li {
