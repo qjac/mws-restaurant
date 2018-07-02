@@ -183,7 +183,7 @@ createRestaurantHTML = restaurant => {
   // <span class="sr-only">Name</span>
   // https://www.sitepoint.com/15-rules-making-accessible-links/
   // template literals: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
-  more.innerHTML = `View Details <span class="sr-only"> for ${restaurant.name} </span>`;
+  more.innerHTML = `View Details<span class="sr-only"> for ${restaurant.name} </span>`;
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more);
 

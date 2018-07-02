@@ -27,6 +27,17 @@
 /******************************************************************************/
 /* Base styles */
 /******************************************************************************/
+/* utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
 
 /* resets */
 
@@ -276,13 +287,21 @@ main {
 }
 
 #restaurants-list li a {
+  display: inline-block;
+  max-width: max-content;
   background-color: var(--color-highlight);
-  border-bottom: 3px solid var(--color-white);
+  border: 3px solid var(--color-white);
   color: var(--color-white);
   text-decoration: none;
   text-transform: uppercase;
   padding: calc(var(--line-height-spacer) * 0.5 * 1rem) 1em;
   border-radius: 2px;
+}
+#restaurants-list li a:hover,
+#restaurants-list li a:focus {
+  background-color: var(--color-white);
+  border: 3px solid var(--color-highlight);
+  color: var(--color-highlight);
 }
 
 /* restaurant.html  has body class .inside*/
