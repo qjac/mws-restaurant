@@ -31,7 +31,7 @@
 .sr-only {
   position: absolute;
   width: 1px;
-  height: 1px;
+  git: 1px;
   padding: 0;
   margin: -1px;
   overflow: hidden;
@@ -302,6 +302,9 @@ main {
   background-color: var(--color-white);
   border: 3px solid var(--color-highlight);
   color: var(--color-highlight);
+}
+#restaurants-list li a:active {
+  background-color: var(--color-light);
 }
 
 /* restaurant.html  has body class .inside*/
