@@ -320,6 +320,8 @@ main {
   padding-bottom: calc(var(--line-height-spacer) * 0.25 * 1rem);
   min-width: 100%;
   min-height: 100%;
+  -ms-align-self: stretch;
+  align-self: stretch;
 }
 
 #restaurant-cuisine {
