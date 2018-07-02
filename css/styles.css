@@ -1,5 +1,4 @@
 /* CSS Document */
-/* TODO: Check colors for accessibility. Adjust palette as needed. Also adjust for aesthetics as needed.*/
 
 /* Variables */
 :root {
@@ -19,9 +18,9 @@
   --color-mid: #666;
   --color-dark: #333;
   --color-black: #252831;
-  --color-accent-primary: #3397db;
+  --color-accent-primary: #79bbe7;
   --color-accent-primary-darker: #01447e;
-  --color-highlight: #f18200;
+  --color-highlight: #df600a;
 }
 
 /******************************************************************************/
@@ -230,6 +229,7 @@ main {
 /* index.html */
 /*===== index.html ============= Restaurant Filtering ======================= */
 .filter-options {
+  color: var(--color-black);
   padding: calc(var(--line-height-spacer) * 1rem) var(--horizontal-spacer);
   background-color: var(--color-accent-primary);
   display: grid;
@@ -240,7 +240,7 @@ main {
 }
 
 .filter-options h2 {
-  color: var(--color-white);
+  /* color: var(--color-white); */
   font-size: 1.1rem;
   grid-column: 1 / -1;
   text-align: center;
@@ -304,7 +304,7 @@ main {
   color: var(--color-highlight);
 }
 #restaurants-list li a:active {
-  background-color: var(--color-light);
+  color: var(--color-accent-primary-darker);
 }
 
 /* restaurant.html  has body class .inside*/
@@ -413,7 +413,7 @@ main {
 
 #reviews-container h2 {
   font-size: 1.75rem;
-  color: var(--color-highlight);
+  color: var(--color-accent-primary-darker);
   font-weight: 300;
   letter-spacing: -1px;
 }
@@ -462,6 +462,7 @@ main {
 #reviews-container li p:nth-of-type(0n + 3) {
   grid-area: review-rating;
   background-color: var(--color-highlight);
+  color: var(--color-white);
   justify-self: start;
   text-transform: uppercase;
   margin: calc(var(--line-height-spacer) * 0.75 * 1rem);
