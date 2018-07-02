@@ -198,7 +198,7 @@ nav h1 a {
 
 /* Add a color to all links inside the list */
 #breadcrumb li a {
-  color: var(--color-accent-primary);
+  color: var(--color-accent-primary-darker);
   text-decoration: none;
 }
 
@@ -206,7 +206,7 @@ nav h1 a {
 #breadcrumb li a:hover,
 #breadcrumb li a:active,
 #breadcrumb li a:focus {
-  color: var(--color-accent-primary-darker);
+  color: var(--color-accent-primary);
   text-decoration: underline;
 }
 /* end HEADER */
