@@ -26,17 +26,6 @@
 /******************************************************************************/
 /* Base styles */
 /******************************************************************************/
-/* utility */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  git: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
 
 /* resets */
 
@@ -123,7 +112,6 @@ a:hover,
 a:focus,
 a:active {
   color: var(--color-accent-primary);
-  text-decoration: none;
 }
 
 body {
@@ -133,26 +121,40 @@ body {
   font-weight: normal;
 }
 
-header {
-  width: 100%;
-  position: sticky;
-  top: 0;
-  z-index: 10000; /* high z-index needed to override mapbox z-index */
+/* utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  git: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
-header,
-footer {
-  /*   padding: calc(var(--line-height-spacer) * 1rem) var(--horizontal-spacer);
- */
+/* skip map link implemented using this technique: https://webaim.org/techniques/css/invisiblecontent/ */
+.skip a {
+  /* using relative instead of absolute to keep map grids in line visually */
+  position: absolute;
+  left: -10000px;
+  top: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  padding: calc(var(--line-height-spacer) * 0.75rem) var(--horizontal-spacer);
+  color: var(--color-accent-primary-darker);
 }
 
-#restaurants-list,
-#restaurant-container,
-#reviews-container {
-  /* margin/padding set to match nav and footer padding */
-  /* we want margin collapse on top/bottom of main sections */
-  margin: calc(var(--line-height-spacer) * 1rem) 0 0;
-  padding: 0 var(--horizontal-spacer) calc(var(--line-height-spacer) * 1rem);
+/* .skip:focus, */
+.skip a:focus,
+/* .skip:active, */ .skip a:active {
+  position: static;
+  left: auto;
+  width: auto;
+  height: auto;
+  display: block;
+  /* min-height: 10rem; */
 }
 
 /* end BASE styles */
@@ -162,8 +164,13 @@ footer {
 /******************************************************************************/
 header {
   min-height: 80px;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 10000; /* high z-index needed to override mapbox z-index */
   background-color: var(--color-black);
   text-align: center;
+  border-bottom: 1px solid var(--color-light);
 }
 
 header h1 {
@@ -228,7 +235,17 @@ main {
   background-color: var(--color-light);
 }
 
+#restaurants-list,
+#restaurant-container,
+#reviews-container {
+  /* margin/padding set to match nav and footer padding */
+  /* we want margin collapse on top/bottom of main sections */
+  margin: calc(var(--line-height-spacer) * 1rem) 0 0;
+  padding: 0 var(--horizontal-spacer) calc(var(--line-height-spacer) * 1rem);
+}
+
 /* ================================= Map ==================================== */
+
 #map {
   /* /2 we want map to look like it takes up half of page vertically minus the header*/
   /* 137px is the min size of .inside header */
@@ -244,22 +261,11 @@ main {
   background-color: var(--color-accent-primary);
   display: grid;
   grid-template-columns: minmax(min-content, 15rem) minmax(min-content, 15rem);
-  /*   -ms-grid-template-areas: 'n-label c-label' 'n-select c-select';
-  grid-template-areas:
-    'n-label c-label'
-    'n-select c-select'; */
   gap: calc(var(--line-height-spacer) * 0.25 * 1rem) var(--horizontal-spacer);
   align-items: center;
   justify-content: center;
 }
 
-.filter-options h2 {
-  /* color: var(--color-white); */
-  font-size: 1.1rem;
-  grid-column: 1 / -1;
-  text-align: center;
-  margin-bottom: calc(var(--line-height-spacer) * 0.5rem);
-}
 .filter-options div {
   display: flex;
   flex-flow: column nowrap;
@@ -518,14 +524,14 @@ main {
     margin-left: auto;
   }
 
-  #restaurant-container {
+  .inside #restaurant-container {
     margin: 0;
     padding: 0;
     grid-column: 1/3;
     grid-row: 1/2;
   }
 
-  #reviews-container {
+  .inside #reviews-container {
     margin: 0;
     padding: 0;
     grid-column: 1/2;
@@ -536,13 +542,14 @@ main {
     border-top: none;
   }
 
-  #map-container {
+  .inside #map-container {
     grid-column: 2/3;
     grid-row: 2/3;
     display: grid;
+    grid: max-content / 1fr;
   }
 
-  #map {
+  .inside #map {
     border-radius: calc(var(--line-height-spacer) * 1.1 * 1rem) 2px;
   }
 }
