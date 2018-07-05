@@ -140,9 +140,10 @@ header {
   z-index: 10000; /* high z-index needed to override mapbox z-index */
 }
 
-nav,
+header,
 footer {
-  padding: calc(var(--line-height-spacer) * 1rem) var(--horizontal-spacer);
+  /*   padding: calc(var(--line-height-spacer) * 1rem) var(--horizontal-spacer);
+ */
 }
 
 #restaurants-list,
@@ -159,20 +160,25 @@ footer {
 /******************************************************************************/
 /* HEADER */
 /******************************************************************************/
-/* NAV */
-nav {
+header {
   min-height: 80px;
   background-color: var(--color-black);
   text-align: center;
 }
 
-nav h1 a {
+header h1 {
+  padding: calc(var(--line-height-spacer) * 1rem) var(--horizontal-spacer);
+}
+
+header h1 a {
   color: var(--color-white);
   font-weight: 200;
   letter-spacing: 10px;
   text-transform: uppercase;
   text-decoration: none;
 }
+
+/* NAV */
 
 /* restaurant.html */
 /* breadcrumbs */
@@ -182,6 +188,7 @@ nav h1 a {
   background-color: var(--color-white);
   font-size: calc(var(--font-size-primary) * 1.5);
   margin: 0;
+  text-align: initial;
 }
 
 /* Display list items side by side */
@@ -190,16 +197,19 @@ nav h1 a {
 }
 
 /* Add a slash symbol (/) before/behind each list item */
+/* got the code from: https://www.w3.org/TR/wai-aria-practices-1.1/examples/breadcrumb/index.html */
 #breadcrumb li + li::before {
-  padding: 0 0.5em;
-  color: var(--color-black);
-  content: '/\00a0';
+  display: inline-block;
+  margin: 0 0.75em;
+  transform: rotate(15deg);
+  border-right: 0.1em solid var(--color-black);
+  height: 0.8em;
+  content: '';
 }
 
 /* Add a color to all links inside the list */
 #breadcrumb li a {
   color: var(--color-accent-primary-darker);
-  text-decoration: none;
 }
 
 /* Add a color on mouse-over */
@@ -207,7 +217,7 @@ nav h1 a {
 #breadcrumb li a:active,
 #breadcrumb li a:focus {
   color: var(--color-accent-primary);
-  text-decoration: underline;
+  text-decoration: none;
 }
 /* end HEADER */
 
@@ -537,4 +547,5 @@ footer {
   text-align: center;
   text-transform: uppercase;
   margin-top: calc(var(--line-height-spacer) * 1 * 1rem);
+  padding: calc(var(--line-height-spacer) * 1rem) var(--horizontal-spacer);
 }

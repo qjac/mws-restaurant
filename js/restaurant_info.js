@@ -180,6 +180,9 @@ fillBreadcrumb = (restaurant = self.restaurant) => {
   const breadcrumb = document.getElementById('breadcrumb');
   const li = document.createElement('li');
   li.innerHTML = restaurant.name;
+  // add aria-current="page" to li to meet
+  // https://www.w3.org/TR/wai-aria-practices-1.1/examples/breadcrumb/index.html
+  li.setAttribute('aria-current', 'page');
   breadcrumb.appendChild(li);
 };
 
