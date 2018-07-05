@@ -244,6 +244,10 @@ main {
   background-color: var(--color-accent-primary);
   display: grid;
   grid-template-columns: minmax(min-content, 15rem) minmax(min-content, 15rem);
+  /*   -ms-grid-template-areas: 'n-label c-label' 'n-select c-select';
+  grid-template-areas:
+    'n-label c-label'
+    'n-select c-select'; */
   gap: calc(var(--line-height-spacer) * 0.25 * 1rem) var(--horizontal-spacer);
   align-items: center;
   justify-content: center;
@@ -256,7 +260,14 @@ main {
   text-align: center;
   margin-bottom: calc(var(--line-height-spacer) * 0.5rem);
 }
-
+.filter-options div {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.filter-options label {
+  min-width: 100%;
+  margin-bottom: calc(var(--line-height-spacer) * 0.25rem);
+}
 .filter-options select {
   background-color: var(--color-white);
   border: 1px solid var(--color-white);
