@@ -48,6 +48,29 @@
 // } // end if (navigator.Serviceworker)
 
 // event listeners
-// self.addEventListener('fetch', function() {
-//   console.log(event.request);
-// });
+
+self.addEventListener('fetch', function(event) {
+  // console.log(event.request);
+  // console.log('fetching!');
+
+  // hijack requests!
+  event.respondWith(
+    // new Response('<strong>hello </strong>world!', {
+    // can set headers in response
+    // headers: { 'Content-Type': 'text/html' }
+    // })
+
+    // pair with fetch to grab a response
+    fetch(event.request)
+      .then(function(response) {
+        // if statement to control what gets which response under certain conditions
+        if (response.status === 404) {
+          return fetch('img/2.jpg');
+        }
+        return response;
+      })
+      .catch(function() {
+        return new Response('totally failed');
+      })
+  );
+});
