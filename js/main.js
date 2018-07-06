@@ -11,6 +11,22 @@ document.addEventListener('DOMContentLoaded', event => {
   fetchCuisines();
 });
 
+// register service worker after window load.
+// QUESTION: Better to wait until DOMContentLoaded?
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then(function(reg) {
+        console.log('yay');
+      }) //end register success
+      .catch(function(err) {
+        console.log('boo');
+      }); // end register service worker
+  }); // end on load
+} // end if (navigator.Serviceworker)
+
 /**
  * Fetch all neighborhoods and set their HTML.
  */
