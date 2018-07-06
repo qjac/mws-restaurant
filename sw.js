@@ -49,10 +49,9 @@
 
 // most of this code taken directly from the videos about the wittr app
 // supplemented with: https://developers.google.com/web/fundamentals/primers/service-workers/
-
+const cacheName = 'mws-cache-v1';
 // event listeners
 self.addEventListener('install', function(event) {
-  const cacheName = 'mws-cache-v1';
   const urlsToCache = [
     '/',
     '/index.html',
@@ -108,8 +107,30 @@ self.addEventListener('fetch', function(event) {
         return response;
       }
 
+      // https://developers.google.com/web/fundamentals/primers/service-workers/
+      // IMPORTANT: Clone the request. A request is a stream and
+      // can only be consumed once. Since we are consuming this
+      // once by cache and once by the browser for fetch, we need
+      // to clone the response.
+      const fetchRequest = event.request.clone();
       // return console.log('cache NO match!');
-      return fetch(event.request);
+      return fetch(fetchRequest).then(function(response) {
+        // check if the response is valid, if not return response
+        if (!response || response.status !== 200 || response.type !== 'basic') {
+          return response;
+        }
+        // if so, add to cache and return response
+        // IMPORTANT: Clone the response. A response is a stream
+        // and because we want the browser to consume the response
+        // as well as the cache consuming the response, we need
+        // to clone it so we have two streams.
+        var responseToCache = response.clone();
+
+        caches.open(cacheName).then(function(cache) {
+          cache.put(event.request, responseToCache);
+        });
+        return response;
+      });
     })
   );
 });
