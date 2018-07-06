@@ -49,6 +49,7 @@
 
 // most of this code taken directly from the videos about the wittr app
 // supplemented with: https://developers.google.com/web/fundamentals/primers/service-workers/
+
 // event listeners
 self.addEventListener('install', function(event) {
   const cacheName = 'mws-cache-v1';
@@ -62,8 +63,6 @@ self.addEventListener('install', function(event) {
     '/js/main.js',
     '/js/restaurant_info.js',
     '/data/restaurants.json',
-    // normalize failed to load why?
-    // '//normalize-css.googlecode.com/svn/trunk/normalize.css',
     'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css',
     'https://unpkg.com/leaflet@1.3.1/dist/leaflet.js'
   ];
@@ -75,6 +74,11 @@ self.addEventListener('install', function(event) {
     })
   );
 });
+
+// caches.match for taking stuff from cache
+// event.respondWith
+// don't need 404 handling in fetch handler
+// respond with an entry from cache if there is one. it n ot, fetch from network
 
 self.addEventListener('fetch', function(event) {
   // console.log(event.request);
@@ -88,16 +92,24 @@ self.addEventListener('fetch', function(event) {
     // })
 
     // pair with fetch to grab a response
-    fetch(event.request)
-      .then(function(response) {
-        // if statement to control what gets which response under certain conditions
-        if (response.status === 404) {
-          return fetch('img/2.jpg');
-        }
+    // fetch(event.request)
+    //   .then(function(response) {
+    //     // if statement to control what gets which response under certain conditions
+    //     if (response.status === 404) {
+    //       return fetch('img/2.jpg');
+    //     }
+    //     return response;
+    //   })
+    //   .catch(function() {
+    //     return new Response('totally failed');
+    //   })
+    caches.match(event.request).then(function(response) {
+      if (response) {
         return response;
-      })
-      .catch(function() {
-        return new Response('totally failed');
-      })
+      }
+
+      // return console.log('cache NO match!');
+      return fetch(event.request);
+    })
   );
 });
