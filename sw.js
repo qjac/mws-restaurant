@@ -47,7 +47,34 @@
 //   }); // end on load
 // } // end if (navigator.Serviceworker)
 
+// most of this code taken directly from the videos about the wittr app
+// supplemented with: https://developers.google.com/web/fundamentals/primers/service-workers/
 // event listeners
+self.addEventListener('install', function(event) {
+  const cacheName = 'mws-cache-v1';
+  const urlsToCache = [
+    '/',
+    '/index.html',
+    '/restaurant.html',
+    '/css/styles.css',
+    '/js/',
+    '/js/dbhelper.js',
+    '/js/main.js',
+    '/js/restaurant_info.js',
+    '/data/restaurants.json',
+    // normalize failed to load why?
+    // '//normalize-css.googlecode.com/svn/trunk/normalize.css',
+    'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css',
+    'https://unpkg.com/leaflet@1.3.1/dist/leaflet.js'
+  ];
+
+  event.waitUntil(
+    caches.open(cacheName).then(function(cache) {
+      console.log('opened cache');
+      return cache.addAll(urlsToCache);
+    })
+  );
+});
 
 self.addEventListener('fetch', function(event) {
   // console.log(event.request);
