@@ -286,16 +286,16 @@ main {
 /*  ul that holds the index page li's - each li holds info on a single restaurant */
 #restaurants-list {
   list-style: none;
-  display: grid;
+  /* display: grid;
   -ms-grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr)); */
 }
 
 #restaurants-list li {
   background: var(--color-white);
   /*variable line-height spacer * a fraction of spacer to apply * 1em to give it a unit */
   padding: calc(var(--line-height-spacer) * 0.75 * 1rem);
-  margin: calc(var(--line-height-spacer) * 0.5 * 1rem);
+  margin: calc(var(--line-height-spacer) * 0.5 * 1rem) auto;
   border-radius: calc(var(--line-height-spacer) * 1.5 * 1rem) 2px;
 }
 
@@ -334,6 +334,18 @@ main {
 }
 #restaurants-list li a:active {
   color: var(--color-accent-primary-darker);
+}
+
+@media screen and (min-width: 30rem) {
+  #restaurants-list {
+    display: grid;
+    -ms-grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  }
+
+  #restaurants-list li {
+    margin: calc(var(--line-height-spacer) * 0.5 * 1rem);
+  }
 }
 
 /* restaurant.html  has body class .inside*/
