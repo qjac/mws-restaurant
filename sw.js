@@ -12,7 +12,6 @@ self.addEventListener('install', function(event) {
     '/js/dbhelper.js',
     '/js/main.js',
     '/js/restaurant_info.js',
-    '/data/restaurants.json',
     'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css',
     'https://unpkg.com/leaflet@1.3.1/dist/leaflet.js'
   ];
