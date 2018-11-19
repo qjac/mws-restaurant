@@ -1,17 +1,17 @@
 // most of this code taken directly from the videos about the wittr app
 // supplemented with: https://developers.google.com/web/fundamentals/primers/service-workers/
-const cacheName = 'mws-cache-v2';
+const cacheName = 'mws-cache-v1';
 // event listeners
 self.addEventListener('install', function(event) {
   const urlsToCache = [
-    '/src/',
-    '/src/index.html',
-    '/src/restaurant.html',
-    '/src/css/styles.css',
-    '/src/js/',
-    '/src/js/dbhelper.js',
-    '/src/js/main.js',
-    '/src/js/restaurant_info.js',
+    '/',
+    '/index.html',
+    '/restaurant.html',
+    '/css/styles.css',
+    '/js/',
+    '/js/dbhelper.js',
+    '/js/main.js',
+    '/js/restaurant_info.js',
     'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css',
     'https://unpkg.com/leaflet@1.3.1/dist/leaflet.js'
   ];
