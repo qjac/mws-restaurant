@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', event => {
 // QUESTION: Better to wait until DOMContentLoaded?
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js'); // end register service worker
+    navigator.serviceWorker.register('/src/sw.js'); // end register service worker
   }); // end on load
 } // end if (navigator.Serviceworker)
 
