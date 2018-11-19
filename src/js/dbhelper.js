@@ -159,14 +159,14 @@ class DBHelper {
         const imgLg = '800';
         // recreate a string like this:
         // http://variant-1.jpg 500w, http://variant-2.jpg 750w, http://variant-3.jpg 1000w, http://variant-4.jpg 1500w
-        return `/img/img-opt/${restaurant.id}-${imgSm}.jpg 400w, /img/img-opt/${restaurant.id}-${imgMd}.jpg 600w, /img/img-opt/${restaurant.id}-${imgLg}.jpg 800w`;
+        return `/src/img/img-opt/${restaurant.id}-${imgSm}.jpg 400w, /src/img/img-opt/${restaurant.id}-${imgMd}.jpg 600w, /src/img/img-opt/${restaurant.id}-${imgLg}.jpg 800w`;
     }
 
     /**
      * Restaurant image URL.
      */
     static imageUrlForRestaurant(restaurant) {
-        return `/img/img-opt/${restaurant.id}-full.jpg`;
+        return `/src/img/img-opt/${restaurant.id}-full.jpg`;
     }
 
     /**
