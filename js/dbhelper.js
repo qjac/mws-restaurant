@@ -1,3 +1,4 @@
+
 /**
  * Common database helper functions.
  */
@@ -6,56 +7,67 @@ class DBHelper {
      * Database URL.
      * Change this to restaurants.json file location on your server.
      */
-    static get DATABASE_URL() {
+    static get DATABASE_URL () {
         const port = 1337; // Change this to your server port
-            return `http://localhost:${port}/restaurants`;
+        return `http://localhost:${port}/restaurants`;
     }
 
     /**
      * Fetch all restaurants.
      */
-    static fetchRestaurants(callback) {
-          let xhr = new XMLHttpRequest();
-          xhr.open('GET', DBHelper.DATABASE_URL);
-          xhr.onload = () => {
-            if (xhr.status === 200) {
-              // Got a success response from server!
-              const restaurants = JSON.parse(xhr.responseText);
-              callback(null, restaurants);
-            } else {
-              // Oops!. Got an error from server.
-              const error = `Request failed. Returned status of ${xhr.status}`;
-              callback(error, null);
-            }
-          };
-          xhr.send();
+    static fetchRestaurants (callback, id) {
+        fetch(DBHelper.DATABAE_URL)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('something went wrong!');
+                }
+            }).then(data => console.log(data))
+            .catch(error => console.log(error));
+
+        // let xhr = new XMLHttpRequest();
+        // xhr.open('GET', DBHelper.DATABASE_URL);
+        // xhr.onload = () => {
+        //     if (xhr.status === 200) {
+        //         // Got a success response from server!
+        //         const restaurants = JSON.parse(xhr.responseText);
+
+        //         callback(null, restaurants);
+        //     } else {
+        //         // Oops!. Got an error from server.
+        //         const error = `Request failed. Returned status of ${xhr.status}`;
+        //         callback(error, null);
+        //     }
+        // };
+        // xhr.send();
     }
 
     /**
      * Fetch a restaurant by its ID.
      */
-    static fetchRestaurantById(id, callback) {
-          // fetch all restaurants with proper error handling.
-          DBHelper.fetchRestaurants((error, restaurants) => {
+    static fetchRestaurantById (id, callback) {
+        // fetch all restaurants with proper error handling.
+        DBHelper.fetchRestaurants((error, restaurants) => {
             if (error) {
-              callback(error, null);
+                callback(error, null);
             } else {
-              const restaurant = restaurants.find(r => r.id == id);
-              if (restaurant) {
+                const restaurant = restaurants.find(r => r.id == id);
+                if (restaurant) {
                 // Got the restaurant
-                callback(null, restaurant);
-              } else {
+                    callback(null, restaurant);
+                } else {
                 // Restaurant does not exist in the database
-                callback('Restaurant does not exist', null);
-              }
+                    callback('Restaurant does not exist', null);
+                }
             }
-          });
+        });
     }
 
     /**
      * Fetch restaurants by a cuisine type with proper error handling.
      */
-    static fetchRestaurantByCuisine(cuisine, callback) {
+    static fetchRestaurantByCuisine (cuisine, callback) {
         // Fetch all restaurants  with proper error handling
         DBHelper.fetchRestaurants((error, restaurants) => {
             if (error) {
@@ -71,7 +83,7 @@ class DBHelper {
     /**
      * Fetch restaurants by a neighborhood with proper error handling.
      */
-    static fetchRestaurantByNeighborhood(neighborhood, callback) {
+    static fetchRestaurantByNeighborhood (neighborhood, callback) {
         // Fetch all restaurants
         DBHelper.fetchRestaurants((error, restaurants) => {
             if (error) {
@@ -87,7 +99,7 @@ class DBHelper {
     /**
      * Fetch restaurants by a cuisine and a neighborhood with proper error handling.
      */
-    static fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, callback) {
+    static fetchRestaurantByCuisineAndNeighborhood (cuisine, neighborhood, callback) {
         // Fetch all restaurants
         DBHelper.fetchRestaurants((error, restaurants) => {
             if (error) {
@@ -110,7 +122,7 @@ class DBHelper {
     /**
      * Fetch all neighborhoods with proper error handling.
      */
-    static fetchNeighborhoods(callback) {
+    static fetchNeighborhoods (callback) {
         // Fetch all restaurants
         DBHelper.fetchRestaurants((error, restaurants) => {
             if (error) {
@@ -128,7 +140,7 @@ class DBHelper {
     /**
      * Fetch all cuisines with proper error handling.
      */
-    static fetchCuisines(callback) {
+    static fetchCuisines (callback) {
         // Fetch all restaurants
         DBHelper.fetchRestaurants((error, restaurants) => {
             if (error) {
@@ -146,14 +158,14 @@ class DBHelper {
     /**
      * Restaurant page URL.
      */
-    static urlForRestaurant(restaurant) {
+    static urlForRestaurant (restaurant) {
         return `./restaurant.html?id=${restaurant.id}`;
     }
 
     /**
      * Restaurant img srcset URL.
      */
-    static imageSrcsetForRestaurant(restaurant) {
+    static imageSrcsetForRestaurant (restaurant) {
         const imgSm = '400';
         const imgMd = '600';
         const imgLg = '800';
@@ -165,16 +177,16 @@ class DBHelper {
     /**
      * Restaurant image URL.
      */
-    static imageUrlForRestaurant(restaurant) {
+    static imageUrlForRestaurant (restaurant) {
         return `/img/img-opt/${restaurant.id}-full.jpg`;
     }
 
     /**
      * Map marker for a restaurant.
      */
-    static mapMarkerForRestaurant(restaurant, map) {
+    static mapMarkerForRestaurant (restaurant, map) {
         // https://leafletjs.com/reference-1.3.0.html#marker
-        const marker = new L.marker([restaurant.latlng.lat, restaurant.latlng.lng], {
+        const marker = new L.marker([restaurant.latlng.lat, restaurant.latlng.lng ], {
             title: restaurant.name,
             alt: restaurant.name,
             url: DBHelper.urlForRestaurant(restaurant)
