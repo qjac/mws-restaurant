@@ -1,4 +1,7 @@
 
+const dbPromise = idb.open('restaurant-db', 1, upgradeDB => {
+    const store = upgradeDB.createObjectStore('restaurants');
+});
 /**
  * Common database helper functions.
  */
@@ -16,16 +19,37 @@ class DBHelper {
      * Fetch all restaurants.
      */
     static fetchRestaurants (callback) {
-        fetch(DBHelper.DATABASE_URL)
-            .then(response => {
-                if (response.ok) {
-                    console.log('fetching');
-                    return response.json();
-                } else {
-                    throw new Error('something went wrong!');
-                }
-            }).then(restaurants => callback(null, restaurants))
-            .catch(error => callback(null, `Request failed. ${error}`));
+    // Trying to get restaurants from IndexDB
+        dbPromise.then(function (db) {
+            var tx = db.transaction('restaurants');
+            var store = tx.objectStore('restaurants');
+            return store.getAll();
+        }).then(function (restaurants) {
+            if (restaurants.length !== 0) { // if restaurants in idb, return them
+                callback(null, restaurants);
+            } else { // if not in idb, fetch them
+                fetch(DBHelper.DATABASE_URL)
+                    .then(response => response.json())
+                    .then(restaurants => {
+                        // add to idb
+                        dbPromise.then(function (db) {
+                            var tx = db.transaction('restaurants', 'readwrite');
+                            var store = tx.objectStore('restaurants');
+
+                            for (let restaurant of restaurants) {
+                                store.put(restaurant, restaurant.id);
+                            }
+
+                            return tx.complete;
+                        }).catch(function (error) { // failed! not added to idb
+                            console.log(error);
+                        }).finally(function (error) { // return fetched restaurants
+                            callback(null, restaurants);
+                        });
+                    })
+                    .catch(error => callback(error, null));
+            }
+        });
     }
 
     /**
