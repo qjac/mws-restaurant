@@ -18,32 +18,45 @@ class DBHelper {
     /**
      * Fetch all restaurants.
      */
+
+    // I went all over for this one.
+    // The idea to do this work here (instead of in sw.js) came from a comment in the forums that I can't find again and attribute properly.
+    // I used doug brown's helper video, the udacity idb course, and about 8 million stack overflow questions
+    // using restaurants.length to check existence came from another student comment
+    // QUESTION? Is there another way to check if object store already exists?
+    // I feel like there should be a more direct way to check if object store exists instead of
+    // returning the data and then checking that, but I couldn't find anything useful to implement.
+
     static fetchRestaurants (callback) {
-    // Trying to get restaurants from IndexDB
+    // look in idb first
         dbPromise.then(function (db) {
-            var tx = db.transaction('restaurants');
-            var store = tx.objectStore('restaurants');
+            const tx = db.transaction('restaurants');
+            const store = tx.objectStore('restaurants');
             return store.getAll();
         }).then(function (restaurants) {
-            if (restaurants.length !== 0) { // if restaurants in idb, return them
+            if (restaurants.length !== 0) {
+                // if restaurants in idb, return them
                 callback(null, restaurants);
-            } else { // if not in idb, fetch them
+            } else {
+                // if not in idb, fetch them from API
                 fetch(DBHelper.DATABASE_URL)
                     .then(response => response.json())
                     .then(restaurants => {
                         // add to idb
                         dbPromise.then(function (db) {
-                            var tx = db.transaction('restaurants', 'readwrite');
-                            var store = tx.objectStore('restaurants');
+                            const tx = db.transaction('restaurants', 'readwrite');
+                            const store = tx.objectStore('restaurants');
 
                             for (let restaurant of restaurants) {
                                 store.put(restaurant, restaurant.id);
                             }
 
                             return tx.complete;
-                        }).catch(function (error) { // failed! not added to idb
+                        }).catch(function (error) {
+                            // failed! not added to idb
                             console.log(error);
-                        }).finally(function (error) { // return fetched restaurants
+                        }).finally(function (error) {
+                            // return fetched restaurants
                             callback(null, restaurants);
                         });
                     })
