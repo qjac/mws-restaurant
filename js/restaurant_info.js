@@ -96,8 +96,14 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     if (restaurant.operating_hours) {
         fillRestaurantHoursHTML();
     }
-    // fill reviews
-    fillReviewsHTML();
+
+    // const reviews = DBHelper.fetchReviews(restaurant.id);
+    // console.log('info: ' + reviews);
+    // // fill reviews
+    // fillReviewsHTML();
+
+    DBHelper.fetchReviews(restaurant.id)
+        .then(reviews => fillReviewsHTML(reviews));
 };
 
 /**
@@ -128,8 +134,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
     const title = document.createElement('h2');
     title.innerHTML = 'Reviews';
     container.appendChild(title);
-
-    if (!reviews) {
+    if (reviews.length < 1 || !reviews) {
         const noReviews = document.createElement('p');
         noReviews.innerHTML = 'No reviews yet!';
         container.appendChild(noReviews);

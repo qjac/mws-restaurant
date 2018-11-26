@@ -7,6 +7,9 @@ const dbPromise = idb.open('restaurant-db', 1, upgradeDB => {
         const restaurantStore = upgradeDB.createObjectStore('restaurants');
     case 1:
         const reviewStore = upgradeDB.createObjectStore('reviews');
+
+    case 2:
+        upgradeDB.transaction.objectStore('reviews').createIndex('byRestaurant', 'restaurant_id');
     }
 });
 
@@ -233,62 +236,35 @@ class DBHelper {
     /**
      * Fetch all reviews.
      */
-    // static fetchReviews (callback) {
-    // // look in idb first
-    //     dbPromise.then(function (db) {
-    //         const tx = db.transaction('reviews');
-    //         const reviewStore = tx.objectStore('reviews');
-    //         return reviewStore.getAll();
-    //     }).then(function (reviews) {
-    //         if (reviews.length !== 0) {
-    //             // if in idb, return them
-    //             callback(null, reviews);
-    //         } else {
-    //             // if not in idb, fetch them from API
-    //             fetch(`${DBHelper.DATABASE_URL_REVIEWS}/${review.restaurant_id}`)
-    //                 .then(response => response.json())
-    //                 .then(reviews => {
-    //                     // add to idb
-    //                     dbPromise.then(function (db) {
-    //                         const tx = db.transaction('reviews', 'readwrite');
-    //                         const reviewStore = tx.objectStore('reviews');
+    // Sources: https://developer.mozilla.org/en-US/docs/Web/API/IDBIndex/get
+    // Doug Brown's project video
+    // https://developer.mozilla.org/en-US/docs/Web/API/IDBObjectStore/index
+    // https://github.com/jakearchibald/idb
+    static fetchReviews (restaurantId, callback) {
+        return fetch(`${DBHelper.DATABASE_URL_REVIEWS}/?restaurant_id=${restaurantId}`)
+            .then(response => response.json())
+            .then(reviews => {
+                dbPromise.then(function (db) {
+                    const tx = db.transaction('reviews', 'readwrite');
+                    const reviewStore = tx.objectStore('reviews');
 
-    //                         for (let review of reviews) {
-    //                             reviewStore.put(review, review.id);
-    //                         }
+                    for (let review of reviews) {
+                        reviewStore.put(review, review.id);
+                    }
+                });
 
-    //                         return tx.complete;
-    //                     }).catch(function (error) {
-    //                         // failed! not added to idb
-    //                         console.log(error);
-    //                     }).finally(function (error) {
-    //                         // return fetched
-    //                         callback(null, reviews);
-    //                     });
-    //                 })
-    //                 .catch(error => callback(error, null));
-    //         }
-    //     });
-    // }
+                return reviews;
+            })
+            .catch(error => {
+                console.log('nope');
+                return dbPromise.then(function (db) {
+                    const tx = db.transaction('reviews');
+                    const reviewStore = tx.objectStore('reviews');
+                    const reviewsIndex = reviewStore.index('byRestaurant');
+                    const reviews = reviewsIndex.getAll(restaurantId);
 
-    // /**
-    //  * Fetch a restaurant by its ID.
-    //  */
-    // static fetchReviewById (id, callback) {
-    //     // fetch all with proper error handling.
-    //     DBHelper.fetchReviews((error, reviews) => {
-    //         if (error) {
-    //             callback(error, null);
-    //         } else {
-    //             const review = reviews.find(r => r.id == id);
-    //             if (review) {
-    //             // Got the review
-    //                 callback(null, review);
-    //             } else {
-    //             // does not exist in the database
-    //                 callback('Review does not exist', null);
-    //             }
-    //         }
-    //     });
-    // }
+                    return reviews;
+                });
+            });
+    }
 }
