@@ -5,35 +5,6 @@ self.importScripts('/js/dbhelper.js');
 // supplemented with: https://developers.google.com/web/fundamentals/primers/service-workers/
 const cacheName = 'mws-cache-v1';
 
-// https://developers.google.com/web/ilt/pwa/live-data-in-the-service-worker
-function createDB () {
-// from the docs at https://github.com/jakearchibald/idb
-    const dbPromise = idb.open('restaurant-db', 1, upgradeDB => {
-        const store = upgradeDB.createObjectStore('restaurants');
-
-        DBHelper.fetchRestaurants((error, restaurants) => {
-            if (error) {
-                // Got an error
-                console.error(error);
-            } else {
-                // put in idb
-                dbPromise.then(function (db) {
-                    var tx = db.transaction('restaurants', 'readwrite');
-                    var store = tx.objectStore('restaurants');
-                    restaurants.forEach(restaurant => store.put(restaurant, restaurant.id));
-                    return tx.complete;
-                });
-            }
-        });
-    });
-}
-
-self.addEventListener('activate', function (event) {
-    event.waitUntil(
-        createDB()
-    );
-});
-
 // event listeners
 self.addEventListener('install', function (event) {
     const urlsToCache = [

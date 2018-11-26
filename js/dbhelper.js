@@ -1,7 +1,15 @@
 
 const dbPromise = idb.open('restaurant-db', 1, upgradeDB => {
-    const store = upgradeDB.createObjectStore('restaurants');
+    // Note: we don't use 'break' in this switch statement,
+    // the fall-through behaviour is what we want.
+    switch (upgradeDB.oldVersion) {
+    case 0:
+        const restaurantStore = upgradeDB.createObjectStore('restaurants');
+    case 1:
+        const reviewStore = upgradeDB.createObjectStore('reviews');
+    }
 });
+
 /**
  * Common database helper functions.
  */
@@ -13,6 +21,11 @@ class DBHelper {
     static get DATABASE_URL () {
         const port = 1337; // Change this to your server port
         return `http://localhost:${port}/restaurants`;
+    }
+
+    static get DATABASE_URL_REVIEWS () {
+        const port = 1337; // Change this to your server port
+        return `http://localhost:${port}/reviews`;
     }
 
     /**
@@ -31,8 +44,8 @@ class DBHelper {
     // look in idb first
         dbPromise.then(function (db) {
             const tx = db.transaction('restaurants');
-            const store = tx.objectStore('restaurants');
-            return store.getAll();
+            const restaurantStore = tx.objectStore('restaurants');
+            return restaurantStore.getAll();
         }).then(function (restaurants) {
             if (restaurants.length !== 0) {
                 // if restaurants in idb, return them
@@ -45,10 +58,10 @@ class DBHelper {
                         // add to idb
                         dbPromise.then(function (db) {
                             const tx = db.transaction('restaurants', 'readwrite');
-                            const store = tx.objectStore('restaurants');
+                            const restaurantStore = tx.objectStore('restaurants');
 
                             for (let restaurant of restaurants) {
-                                store.put(restaurant, restaurant.id);
+                                restaurantStore.put(restaurant, restaurant.id);
                             }
 
                             return tx.complete;
@@ -216,4 +229,66 @@ class DBHelper {
         marker.addTo(newMap);
         return marker;
     }
+
+    /**
+     * Fetch all reviews.
+     */
+    // static fetchReviews (callback) {
+    // // look in idb first
+    //     dbPromise.then(function (db) {
+    //         const tx = db.transaction('reviews');
+    //         const reviewStore = tx.objectStore('reviews');
+    //         return reviewStore.getAll();
+    //     }).then(function (reviews) {
+    //         if (reviews.length !== 0) {
+    //             // if in idb, return them
+    //             callback(null, reviews);
+    //         } else {
+    //             // if not in idb, fetch them from API
+    //             fetch(`${DBHelper.DATABASE_URL_REVIEWS}/${review.restaurant_id}`)
+    //                 .then(response => response.json())
+    //                 .then(reviews => {
+    //                     // add to idb
+    //                     dbPromise.then(function (db) {
+    //                         const tx = db.transaction('reviews', 'readwrite');
+    //                         const reviewStore = tx.objectStore('reviews');
+
+    //                         for (let review of reviews) {
+    //                             reviewStore.put(review, review.id);
+    //                         }
+
+    //                         return tx.complete;
+    //                     }).catch(function (error) {
+    //                         // failed! not added to idb
+    //                         console.log(error);
+    //                     }).finally(function (error) {
+    //                         // return fetched
+    //                         callback(null, reviews);
+    //                     });
+    //                 })
+    //                 .catch(error => callback(error, null));
+    //         }
+    //     });
+    // }
+
+    // /**
+    //  * Fetch a restaurant by its ID.
+    //  */
+    // static fetchReviewById (id, callback) {
+    //     // fetch all with proper error handling.
+    //     DBHelper.fetchReviews((error, reviews) => {
+    //         if (error) {
+    //             callback(error, null);
+    //         } else {
+    //             const review = reviews.find(r => r.id == id);
+    //             if (review) {
+    //             // Got the review
+    //                 callback(null, review);
+    //             } else {
+    //             // does not exist in the database
+    //                 callback('Review does not exist', null);
+    //             }
+    //         }
+    //     });
+    // }
 }
