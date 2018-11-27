@@ -23,13 +23,13 @@ class DBHelper {
      */
     static get DATABASE_URL () {
         const port = 1337; // Change this to your server port
-        return `http://localhost:${port}/restaurants`;
+        return `http://localhost:${port}`;
     }
 
-    static get DATABASE_URL_REVIEWS () {
-        const port = 1337; // Change this to your server port
-        return `http://localhost:${port}/reviews`;
-    }
+    // static get DATABASE_URL_REVIEWS () {
+    //     const port = 1337; // Change this to your server port
+    //     return `http://localhost:${port}/reviews`;
+    // }
 
     /**
      * Fetch all restaurants.
@@ -55,7 +55,7 @@ class DBHelper {
                 callback(null, restaurants);
             } else {
                 // if not in idb, fetch them from API
-                fetch(DBHelper.DATABASE_URL)
+                fetch(`${DBHelper.DATABASE_URL}/restaurants`)
                     .then(response => response.json())
                     .then(restaurants => {
                         // add to idb
@@ -241,7 +241,7 @@ class DBHelper {
     // https://developer.mozilla.org/en-US/docs/Web/API/IDBObjectStore/index
     // https://github.com/jakearchibald/idb
     static fetchReviews (restaurantId, callback) {
-        return fetch(`${DBHelper.DATABASE_URL_REVIEWS}/?restaurant_id=${restaurantId}`)
+        return fetch(`${DBHelper.DATABASE_URL}/reviews/?restaurant_id=${restaurantId}`)
             .then(response => response.json())
             .then(reviews => {
                 dbPromise.then(function (db) {
@@ -266,5 +266,70 @@ class DBHelper {
                     return reviews;
                 });
             });
+    }
+
+    static updateFavorite (id, newState) {
+        console.log(id, newState);
+        // Push the request into the waiting queue in IDB
+        const url = `${DBHelper.DATABASE_URL}/${id}/?is_favorite=${newState}`;
+        const method = 'PUT';
+        DBHelper.updateRestaurantData(id, { 'is_favorite': newState });
+        // DBHelper.addPendingRequestToQueue(url, method);
+
+        // Update the favorite data on the selected ID in the cached data
+
+        // callback(null, { id, value: newState });
+    }
+
+    static updateRestaurantData (id, updateData) {
+        console.log(id.is_favorite);
+        // Update the restaurant specific data
+        dbPromise.then(db => {
+        //     // console.log('Getting db transaction');
+            const tx = db.transaction('restaurants', 'readwrite');
+            const restaurantStore = tx.objectStore('restaurants');
+            const value = restaurantStore.get(id)
+                .then(value => {
+                    if (!value) {
+                        console.log('No cached data found');
+                        return;
+                    }
+
+                    const restaurantData = value;
+
+                    // console.log('restaurantData' + restaurantData);
+                    // console.log('value' + value);
+                    // console.log('update' + updateData);
+                    // Update restaurantObj with updateObj details
+                    if (!restaurantData) { return; }
+                    const keys = Object.keys(updateData);
+                    keys.forEach(k => {
+                        restaurantData[k] = updateData[k];
+                    });
+
+                    console.log(id, restaurantData);
+
+                    // Put the data back in IDB storage
+                    dbPromise.then(db => {
+                        const tx = db.transaction('restaurants', 'readwrite');
+                        const restaurantStore = tx.objectStore('restaurants');
+                        restaurantStore.put(
+                            restaurantData
+                            , id);
+
+                        console.log(id, restaurantData);
+                        return tx.complete;
+                    });
+                });
+        });
+
+        //         dbPromise.then(db => {
+        //   const tx = db.transaction('objs', 'readwrite');
+        //   tx.objectStore('objs').put({
+        //     id: 123456,
+        //     data: {foo: "bar"}
+        //   });
+        //   return tx.complete;
+        // });
     }
 }
