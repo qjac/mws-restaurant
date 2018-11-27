@@ -79,6 +79,19 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     const name = document.getElementById('restaurant-name');
     name.innerHTML = restaurant.name;
 
+    const fave = document.getElementById('is-favorite');
+    (restaurant.is_favorite) ? fave.checked = true : fave.checked = false;
+    fave.addEventListener('change', function (id, newState) {
+        if (this.checked) {
+            restaurant.is_favorite = true;
+        } else {
+            restaurant.is_favorite = false;
+        }
+        newState = restaurant.is_favorite;
+
+        DBHelper.updateFavorite(restaurant.id, newState);
+    });
+
     const address = document.getElementById('restaurant-address');
     address.innerHTML = restaurant.address;
 
@@ -96,11 +109,6 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     if (restaurant.operating_hours) {
         fillRestaurantHoursHTML();
     }
-
-    // const reviews = DBHelper.fetchReviews(restaurant.id);
-    // console.log('info: ' + reviews);
-    // // fill reviews
-    // fillReviewsHTML();
 
     DBHelper.fetchReviews(restaurant.id)
         .then(reviews => fillReviewsHTML(reviews));
