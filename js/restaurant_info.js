@@ -209,7 +209,8 @@ createReviewHTML = review => {
 handleSubmit = (newReview) => {
     event.preventDefault();
 
-    const restaurantId = getParameterByName('id');
+    const restaurantId = parseInt(getParameterByName('id'));
+    console.log(restaurantId);
     const name = document.getElementById('add-author').value;
     // source: https://stackoverflow.com/questions/9618504/how-to-get-the-selected-radio-button-s-value
     const rating = document.querySelector('input[name="add-rating"]:checked').value;
