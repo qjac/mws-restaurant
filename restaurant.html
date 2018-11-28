@@ -58,22 +58,25 @@
         <fieldset>
     <legend>Add a review</legend>
     
-        <form >
-          <label for="add-name">Name:</label>
-          <input type="text" placeholder="Your name" aria-label="Name of the reviewer" id="add-name" required  name="add-name" />
+        <form action="javascript:;" onsubmit="handleSubmit(this)">
+          <label for="add-author">Name:</label>
+          <!-- add required back in -->
+          <input type="text" placeholder="Your first name" aria-label="Your first name" id="add-author"   name="add-author" />
           
           <div class="add-rating"> 
+            <!-- add required back in -->
             <label for="add-rating">Rating:</label> 
             <input type="radio" name="add-rating" value="1"> 1 </input>
-            <input type="radio" name="add-rating" value="2"> 2</input>
-            <input type="radio" name="add-rating" value="3"> 3</input>
-            <input type="radio" name="add-rating" value="4"> 4</input>
-            <input type="radio" name="add-rating" value="5"> 5</input>
+            <input type="radio" name="add-rating" value="2"> 2 </input>
+            <input type="radio" name="add-rating" value="3"> 3 </input>
+            <input type="radio" name="add-rating" value="4"> 4 </input>
+            <input type="radio" name="add-rating" value="5"> 5 </input>
 
           </div>
           
           <label for="add-comment">Comment:</label>
-          <textarea name="add-comment" rows="6" required id="add-comment" placeholder="Tell us about it!"></textarea>
+          <!-- add required back in -->
+          <textarea name="add-comment" rows="6"  id="add-comment" placeholder="Tell us about it!"></textarea>
           <button type="submit" type="submit">Submit review</button>
         </fieldset>
         </form>

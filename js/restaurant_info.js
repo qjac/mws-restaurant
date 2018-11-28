@@ -46,6 +46,20 @@ initMap = () => {
 };
 
 /**
+ * Get a parameter by name from page URL.
+ */
+getParameterByName = (name, url) => {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+
+    const results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+};
+
+/**
  * Get current restaurant from page URL.
  */
 fetchRestaurantFromURL = callback => {
@@ -70,6 +84,19 @@ fetchRestaurantFromURL = callback => {
             callback(null, restaurant);
         });
     }
+};
+
+/**
+ * Add restaurant name to the breadcrumb navigation menu
+ */
+fillBreadcrumb = (restaurant = self.restaurant) => {
+    const breadcrumb = document.getElementById('breadcrumb');
+    const li = document.createElement('li');
+    li.innerHTML = restaurant.name;
+    // add aria-current="page" to li to meet
+    // https://www.w3.org/TR/wai-aria-practices-1.1/examples/breadcrumb/index.html
+    li.setAttribute('aria-current', 'page');
+    breadcrumb.appendChild(li);
 };
 
 /**
@@ -179,29 +206,21 @@ createReviewHTML = review => {
     return li;
 };
 
-/**
- * Add restaurant name to the breadcrumb navigation menu
- */
-fillBreadcrumb = (restaurant = self.restaurant) => {
-    const breadcrumb = document.getElementById('breadcrumb');
-    const li = document.createElement('li');
-    li.innerHTML = restaurant.name;
-    // add aria-current="page" to li to meet
-    // https://www.w3.org/TR/wai-aria-practices-1.1/examples/breadcrumb/index.html
-    li.setAttribute('aria-current', 'page');
-    breadcrumb.appendChild(li);
-};
+handleSubmit = (newReview) => {
+    event.preventDefault();
 
-/**
- * Get a parameter by name from page URL.
- */
-getParameterByName = (name, url) => {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, '\\$&');
-    const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+    const restaurantId = getParameterByName('id');
+    const name = document.getElementById('add-author').value;
+    // source: https://stackoverflow.com/questions/9618504/how-to-get-the-selected-radio-button-s-value
+    const rating = document.querySelector('input[name="add-rating"]:checked').value;
+    const comment = document.getElementById('add-comment').value;
 
-    const results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    const review = {
+        'restaurant_id': restaurantId,
+        'name': name,
+        'rating': rating,
+        'comments': comment
+    };
+
+    console.log(review);
 };
