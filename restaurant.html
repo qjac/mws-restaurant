@@ -1,108 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#df600a"/>
+    <link rel="manifest" href="/manifest.json">
+    <!-- Main CSS file -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
+    <title>Restaurant Info</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#df600a"/>
-  <link rel="manifest" href="/manifest.json">
-  <!-- Main CSS file -->
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
-  <title>Restaurant Info</title>
-</head>
-
-<body class="inside">
-  <!-- Beginning header -->
-  <header>
-    <!-- Beginning nav -->
+  <body class="inside">
+    <header>
       <h1><a href="/">Restaurant Reviews</a></h1>
-    <!-- Beginning breadcrumb -->
-    <nav aria-label="Breadcrumb">
-    <ol id="breadcrumb" >
-      <li><a href="/">Home</a></li>
-    </ol>
-    <!-- End breadcrumb -->
-    </nav> <!-- End nav -->
-  </header>
-  <!-- End header -->
+      <nav aria-label="Breadcrumb">
+        <ol id="breadcrumb" >
+          <li><a href="/">Home</a></li>
+        </ol>
+      </nav>
+    </header>
 
+    <main id="maincontent">
+      <!-- Beginning map -->
+      <section id="map-container">
+        <div class="skip">
+          <a href="#restaurant-container">Skip Map</a>
+        </div>
+        <div id="map" role="application" aria-label="Map showing restaurant locations"></div>
+      </section>
+      <!-- End map -->
 
-  <!-- Beginning main -->
-  <main id="maincontent">
-    <!-- Beginning map -->
-    <section id="map-container">
-      <div class="skip">
-        <a href="#restaurant-container">Skip Map</a>
-      </div>
-      <div id="map" role="application" aria-label="Map showing restaurant locations"></div>
-    </section>
-    <!-- End map -->
-    <!-- Beginning restaurant -->
-    <section id="restaurant-container">
-      <h2 id="restaurant-name"></h2>
-      <span id="restaurant-fave">
-        <input type="checkbox" id="is-favorite" name="is-favorite">
-  <label for="is-favorite">Favorite?</label></span>
-      <img id="restaurant-img">
-      <p id="restaurant-cuisine"></p>
-      <p id="restaurant-address"></p>
-      <table id="restaurant-hours"></table>
-    </section>
-    <!-- end restaurant -->
-    <!-- Beginning reviews -->
-    <section id="reviews-container">
-      <h2>Reviews</h2>
+      <!-- Beginning restaurant -->
+      <section id="restaurant-container">
+        <h2 id="restaurant-name"></h2>
+        <span id="restaurant-fave">
+          <input type="checkbox" id="is-favorite" name="is-favorite">
+    <label for="is-favorite">Favorite?</label></span>
+        <img id="restaurant-img">
+        <p id="restaurant-cuisine"></p>
+        <p id="restaurant-address"></p>
+        <table id="restaurant-hours"></table>
+      </section>
+      <!-- end restaurant -->
 
-      <div class="add-review">
-    
-        <form action="javascript:;" onsubmit="handleSubmit(this)">
-          <fieldset>
-            <legend>Add a review</legend>
-            
-            <label for="add-author">Name:</label>
-            <!-- add required back in -->
-            <input type="text" placeholder="Your first name" aria-label="Your first name" id="add-author"   name="add-author" />
-            
-            <div class="add-rating"> 
-              <!-- add required back in -->
-              <label for="add-rating">Rating: 
-              <input type="radio" name="add-rating" value="1"> 1 </input>
-              <input type="radio" name="add-rating" value="2"> 2 </input>
-              <input type="radio" name="add-rating" value="3"> 3 </input>
-              <input type="radio" name="add-rating" value="4"> 4 </input>
-              <input type="radio" name="add-rating" value="5"> 5 </input>
-              </label>
-            </div>
-            
-            <label for="add-comment">Comment:</label>
-            <!-- add required back in -->
-            <textarea name="add-comment" rows="6"  id="add-comment" placeholder="Tell us about it!"></textarea>
-            <button type="submit" type="submit">Submit review</button>
-        </fieldset>
-        </form>
-      </div>
-      <ul id="reviews-list"></ul>
-    </section>
-    <!-- End reviews -->
-  </main>
-  <!-- End main -->
+      <!-- Beginning reviews -->
+      <section id="reviews-container">
+        <h2>Reviews</h2>
 
-  <!-- Beginning footer -->
-  <footer id="footer">
-    Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a>
-    <br>All Rights Reserved.
-  </footer>
-  <!-- End footer -->
-  <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
-  <!-- Beginning scripts -->
-  <script src="js/idb.js"></script>
-  <!-- Database helpers -->
-  <script src="js/dbhelper.js"></script>
-  <!-- Main javascript file -->
-  <script src="js/restaurant_info.js"></script>
-  <!-- End scripts -->
+        <div class="add-review">
+      
+          <form action="javascript:;" onsubmit="handleSubmit(this)">
+            <fieldset>
+              <legend>Add a review</legend>
 
-</body>
+              <label for="add-author">Name:</label>
+              <input type="text" placeholder="Your first name" aria-label="Your first name" id="add-author" name="add-author" required />
+              
+              <div class="add-rating"> 
+                <label for="add-rating">Rating: 
+                <input type="radio" name="add-rating" value="1" required> 1 </input>
+                <input type="radio" name="add-rating" value="2" required> 2 </input>
+                <input type="radio" name="add-rating" value="3" required> 3 </input>
+                <input type="radio" name="add-rating" value="4" required> 4 </input>
+                <input type="radio" name="add-rating" value="5" required> 5 </input>
+                </label>
+              </div>
+              
+              <label for="add-comment">Comment:</label>
+              <textarea name="add-comment" rows="6"  id="add-comment" placeholder="Tell us about it!" required></textarea>
+              <button type="submit" type="submit">Submit review</button>
+          </fieldset>
+          </form>
+        </div>
+        <ul id="reviews-list"></ul>
+      </section>
+      <!-- End reviews -->
+    </main>
 
+    <footer id="footer">
+      Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a>
+      <br>All Rights Reserved.
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+    <script src="js/idb.js"></script>
+    <script src="js/dbhelper.js"></script>
+    <script src="js/restaurant_info.js"></script>
+  </body>
 </html>
