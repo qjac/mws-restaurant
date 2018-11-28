@@ -13,6 +13,12 @@ document.addEventListener('DOMContentLoaded', event => {
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
         navigator.serviceWorker.register('/sw.js'); // end register service worker
+
+        // source: https://developers.google.com/web/updates/2015/12/background-sync
+        // Then later, request a one-off sync:
+        navigator.serviceWorker.ready.then(function (swRegistration) {
+            return swRegistration.sync.register('apiSync');
+        });
     }); // end on load
 } // end if (navigator.Serviceworker)
 
@@ -210,7 +216,6 @@ handleSubmit = (newReview) => {
     event.preventDefault();
 
     const restaurantId = parseInt(getParameterByName('id'));
-    console.log(restaurantId);
     const name = document.getElementById('add-author').value;
     // source: https://stackoverflow.com/questions/9618504/how-to-get-the-selected-radio-button-s-value
     const rating = document.querySelector('input[name="add-rating"]:checked').value;

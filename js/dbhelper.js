@@ -4,12 +4,15 @@ const dbPromise = idb.open('restaurant-db', 1, upgradeDB => {
     // the fall-through behaviour is what we want.
     switch (upgradeDB.oldVersion) {
     case 0:
-        const restaurantStore = upgradeDB.createObjectStore('restaurants');
+        upgradeDB.createObjectStore('restaurants');
     case 1:
-        const reviewStore = upgradeDB.createObjectStore('reviews');
+        upgradeDB.createObjectStore('reviews');
 
     case 2:
         upgradeDB.transaction.objectStore('reviews').createIndex('byRestaurant', 'restaurant_id');
+
+    case 3:
+        upgradeDB.createObjectStore('pending', { keyPath: 'id', autoIncrement: true });
     }
 });
 
@@ -265,17 +268,12 @@ class DBHelper {
     // modified the following from Doug Brown's project walk through
 
     static updateFavorite (id, newState) {
-        const url = `${DBHelper.DATABASE_URL}/${id}/?is_favorite=${newState}`;
-        const method = 'PUT';
         DBHelper.updateRestaurantData(id, { 'is_favorite': newState });
 
-        // Still need to send updates to server when online
-
-        // DBHelper.addPendingRequestToQueue(url, method);
-
-        // Update the favorite data on the selected ID in the cached data
-
-        // callback(null, { id, value: newState });
+        const url = `${DBHelper.DATABASE_URL}/${id}/?is_favorite=${newState}`;
+        const method = 'PUT';
+        const body = null;
+        DBHelper.addToPending(url, method, body);
     }
 
     static updateRestaurantData (id, updateData) {
@@ -319,6 +317,24 @@ class DBHelper {
                 Date.now());
 
             return tx.complete;
+        });
+
+        const url = `${DBHelper.DATABASE_URL}/reviews`;
+        const method = 'POST';
+        const body = review;
+        DBHelper.addToPending(url, method, body);
+    }
+
+    static addToPending (url, method, body) {
+        dbPromise.then(db => {
+            const tx = db.transaction('pending', 'readwrite');
+            const pendingStore = tx.objectStore('pending');
+            pendingStore.put({ url, method, body });
+        }).catch(error => {
+            console.log(error);
+        }).then(function () {
+            console.log('sync time');
+            // register for sync and clean up the form
         });
     }
 }

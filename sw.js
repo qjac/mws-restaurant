@@ -64,3 +64,13 @@ self.addEventListener('fetch', function (event) {
         );
     }
 });
+
+self.addEventListener('sync', function (event) {
+    if (event.tag == 'apiSync') {
+        event.waitUntil(
+            console.log('sync')
+            // doSomeStuff()
+
+        );
+    }
+});
