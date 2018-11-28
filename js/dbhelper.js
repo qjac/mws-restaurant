@@ -309,4 +309,16 @@ class DBHelper {
                 });
         });
     }
+
+    static addReview (review) {
+        dbPromise.then(db => {
+            const tx = db.transaction('reviews', 'readwrite');
+            const reviewStore = tx.objectStore('reviews');
+            reviewStore.put(
+                review,
+                Date.now());
+
+            return tx.complete;
+        });
+    }
 }

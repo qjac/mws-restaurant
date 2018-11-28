@@ -222,5 +222,5 @@ handleSubmit = (newReview) => {
         'comments': comment
     };
 
-    console.log(review);
+    DBHelper.addReview(review);
 };
