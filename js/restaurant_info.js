@@ -192,7 +192,7 @@ createReviewHTML = review => {
 
     const date = document.createElement('p');
 
-    date.innerHTML = new Date(review.updatedAt).toDateString();
+    date.innerHTML = (review.updatedAt) ? new Date(review.updatedAt).toDateString() : new Date().toDateString();
     li.appendChild(date);
 
     const rating = document.createElement('p');
@@ -223,4 +223,13 @@ handleSubmit = (newReview) => {
     };
 
     DBHelper.addReview(review);
+
+    // add new review to ui
+    const container = document.getElementById('reviews-container');
+    const ul = document.getElementById('reviews-list');
+    ul.insertBefore(createReviewHTML(review), ul.firstChild);
+    container.appendChild(ul);
+
+    // clear form after submit
+    newReview.reset();
 };
