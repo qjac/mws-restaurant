@@ -26,11 +26,6 @@ class DBHelper {
         return `http://localhost:${port}`;
     }
 
-    // static get DATABASE_URL_REVIEWS () {
-    //     const port = 1337; // Change this to your server port
-    //     return `http://localhost:${port}/reviews`;
-    // }
-
     /**
      * Fetch all restaurants.
      */
@@ -256,7 +251,6 @@ class DBHelper {
                 return reviews;
             })
             .catch(error => {
-                console.log('nope');
                 return dbPromise.then(function (db) {
                     const tx = db.transaction('reviews');
                     const reviewStore = tx.objectStore('reviews');
@@ -268,12 +262,15 @@ class DBHelper {
             });
     }
 
+    // modified the following from Doug Brown's project walk through
+
     static updateFavorite (id, newState) {
-        console.log(id, newState);
-        // Push the request into the waiting queue in IDB
         const url = `${DBHelper.DATABASE_URL}/${id}/?is_favorite=${newState}`;
         const method = 'PUT';
         DBHelper.updateRestaurantData(id, { 'is_favorite': newState });
+
+        // Still need to send updates to server when online
+
         // DBHelper.addPendingRequestToQueue(url, method);
 
         // Update the favorite data on the selected ID in the cached data
@@ -282,32 +279,22 @@ class DBHelper {
     }
 
     static updateRestaurantData (id, updateData) {
-        console.log(id.is_favorite);
-        // Update the restaurant specific data
         dbPromise.then(db => {
-        //     // console.log('Getting db transaction');
             const tx = db.transaction('restaurants', 'readwrite');
             const restaurantStore = tx.objectStore('restaurants');
             const value = restaurantStore.get(id)
                 .then(value => {
                     if (!value) {
-                        console.log('No cached data found');
                         return;
                     }
 
                     const restaurantData = value;
 
-                    // console.log('restaurantData' + restaurantData);
-                    // console.log('value' + value);
-                    // console.log('update' + updateData);
-                    // Update restaurantObj with updateObj details
                     if (!restaurantData) { return; }
                     const keys = Object.keys(updateData);
                     keys.forEach(k => {
                         restaurantData[k] = updateData[k];
                     });
-
-                    console.log(id, restaurantData);
 
                     // Put the data back in IDB storage
                     dbPromise.then(db => {
@@ -317,19 +304,9 @@ class DBHelper {
                             restaurantData
                             , id);
 
-                        console.log(id, restaurantData);
                         return tx.complete;
                     });
                 });
         });
-
-        //         dbPromise.then(db => {
-        //   const tx = db.transaction('objs', 'readwrite');
-        //   tx.objectStore('objs').put({
-        //     id: 123456,
-        //     data: {foo: "bar"}
-        //   });
-        //   return tx.complete;
-        // });
     }
 }
