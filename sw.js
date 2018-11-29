@@ -70,7 +70,6 @@ self.addEventListener('fetch', function (event) {
 
 self.addEventListener('sync', function (event) {
     if (event.tag === 'apiSync') {
-        console.log('sw sync');
         event.waitUntil(
             dbPromise.then(function (db) {
                 const tx = db.transaction('pending');
