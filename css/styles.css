@@ -422,7 +422,7 @@ main {
     padding-bottom: 2%;
   }
 
-  #restaurant-container h2 {
+  .restaurant-header {
     -ms-grid-column: 2/3;
     grid-column: 2/3;
     -ms-grid-row: 1/2;
@@ -431,10 +431,13 @@ main {
     -ms-align-self: start;
     align-self: start;
     background-color: var(--color-accent-primary-darker);
-    color: var(--color-white);
-    text-align: center;
-    padding: calc(var(--line-height-spacer) * 0.25 * 1rem) 1em;
     border-radius: 2px calc(var(--line-height-spacer) * 1.5 * 1rem);
+    padding: calc(var(--line-height-spacer) * 0.25 * 1rem) 1.5em;
+  }
+
+  #restaurant-container h2 {
+    color: var(--color-white);
+    padding: 0;
   }
 
   #restaurant-container img {
