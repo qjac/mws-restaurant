@@ -367,6 +367,27 @@ main {
   align-self: stretch;
 }
 
+.restaurant-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #restaurant-fave input[type='checkbox'] + label:before {
+    content:"😐";
+    font-size: 2rem;
+    -webkit-filter: grayscale(90%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(90%);
+  }
+  #restaurant-fave input[type='checkbox']:checked + label:before {
+    content:"😍";
+    -webkit-filter: grayscale(0); /* Safari 6.0 - 9.0 */
+    filter: grayscale(0);
+  }
+  #restaurant-fave input[type='checkbox'] {
+      display:none;
+  }
+
 #restaurant-cuisine {
   background-color: var(--color-dark);
   color: var(--color-light);
