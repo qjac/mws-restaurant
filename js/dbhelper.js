@@ -276,7 +276,7 @@ class DBHelper {
 
         fetch(url, { method: method }).then(res => res.json())
             .then(response => {
-                console.log('success');
+
             })
             .catch(error => {
                 DBHelper.addToPending(url, method);
