@@ -333,7 +333,7 @@ class DBHelper {
         }).catch(error => {
             console.log(error);
         }).then(function () {
-            console.log('sync time');
+            console.log('db helper sync time');
             // register for sync and clean up the form
         });
     }

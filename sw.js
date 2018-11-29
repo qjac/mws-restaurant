@@ -1,6 +1,23 @@
 self.importScripts('/js/idb.js');
 self.importScripts('/js/dbhelper.js');
 
+// const dbPromise = idb.open('restaurant-db', 1, upgradeDB => {
+//     // Note: we don't use 'break' in this switch statement,
+//     // the fall-through behaviour is what we want.
+//     switch (upgradeDB.oldVersion) {
+//     case 0:
+//         upgradeDB.createObjectStore('restaurants');
+//     case 1:
+//         upgradeDB.createObjectStore('reviews');
+
+//     case 2:
+//         upgradeDB.transaction.objectStore('reviews').createIndex('byRestaurant', 'restaurant_id');
+
+//     case 3:
+//         upgradeDB.createObjectStore('pending', { keyPath: 'id', autoIncrement: true });
+//     }
+// });
+
 // most of this code taken directly from the videos about the wittr app
 // supplemented with: https://developers.google.com/web/fundamentals/primers/service-workers/
 const cacheName = 'mws-cache-v1';
@@ -65,12 +82,42 @@ self.addEventListener('fetch', function (event) {
     }
 });
 
-self.addEventListener('sync', function (event) {
-    if (event.tag == 'apiSync') {
-        event.waitUntil(
-            console.log('sync')
-            // doSomeStuff()
+// source: https://developers.google.com/web/updates/2015/12/background-sync
+// source: https://www.twilio.com/blog/2017/02/send-messages-when-youre-back-online-with-service-workers-and-background-sync.html
 
+self.addEventListener('sync', function (event) {
+    if (event.tag === 'apiSync') {
+        console.log('sw sync');
+        event.waitUntil(
+            dbPromise.then(function (db) {
+                const tx = db.transaction('pending');
+                const pendingStore = tx.objectStore('pending');
+                const data = pendingStore.getAll();
+                return data;
+            }).then(function (data) {
+                return Promise.all(
+
+                    data.map(dataItem => {
+                        const url = dataItem.url;
+                        const method = dataItem.method;
+                        const body = JSON.stringify(dataItem.body);
+
+                        fetch(url, {
+                            method: method,
+                            body: body
+
+                        }).then(res => res.json())
+                            .then(response => {
+                                dbPromise.then(function (db) {
+                                    const tx = db.transaction('pending', 'readwrite');
+                                    const pendingStore = tx.objectStore('pending');
+                                    pendingStore.delete(dataItem.id);
+                                });
+                            })
+                            .catch(error => console.error('Error:', error));
+                    })
+                );
+            })
         );
     }
 });
