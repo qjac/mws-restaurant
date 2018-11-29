@@ -1,23 +1,6 @@
 self.importScripts('/js/idb.js');
 self.importScripts('/js/dbhelper.js');
 
-// const dbPromise = idb.open('restaurant-db', 1, upgradeDB => {
-//     // Note: we don't use 'break' in this switch statement,
-//     // the fall-through behaviour is what we want.
-//     switch (upgradeDB.oldVersion) {
-//     case 0:
-//         upgradeDB.createObjectStore('restaurants');
-//     case 1:
-//         upgradeDB.createObjectStore('reviews');
-
-//     case 2:
-//         upgradeDB.transaction.objectStore('reviews').createIndex('byRestaurant', 'restaurant_id');
-
-//     case 3:
-//         upgradeDB.createObjectStore('pending', { keyPath: 'id', autoIncrement: true });
-//     }
-// });
-
 // most of this code taken directly from the videos about the wittr app
 // supplemented with: https://developers.google.com/web/fundamentals/primers/service-workers/
 const cacheName = 'mws-cache-v1';
@@ -103,9 +86,8 @@ self.addEventListener('sync', function (event) {
                         const body = JSON.stringify(dataItem.body);
 
                         fetch(url, {
-                            method: method,
-                            body: body
-
+                            body,
+                            method
                         }).then(res => res.json())
                             .then(response => {
                                 dbPromise.then(function (db) {

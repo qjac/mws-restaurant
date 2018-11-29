@@ -266,14 +266,22 @@ class DBHelper {
     }
 
     // modified the following from Doug Brown's project walk through
-
     static updateFavorite (id, newState) {
         DBHelper.updateRestaurantData(id, { 'is_favorite': newState });
 
-        const url = `${DBHelper.DATABASE_URL}/${id}/?is_favorite=${newState}`;
+        const url = `${DBHelper.DATABASE_URL}/restaurants/${id}/?is_favorite=${newState}`;
         const method = 'PUT';
-        const body = null;
-        DBHelper.addToPending(url, method, body);
+        // const body = { 'is_favorite': newState };
+        // DBHelper.addToPending(url, method);
+
+        fetch(url, { method: method }).then(res => res.json())
+            .then(response => {
+                console.log('success');
+            })
+            .catch(error => {
+                DBHelper.addToPending(url, method);
+                console.error('Error:', error);
+            });
     }
 
     static updateRestaurantData (id, updateData) {
@@ -329,12 +337,14 @@ class DBHelper {
         dbPromise.then(db => {
             const tx = db.transaction('pending', 'readwrite');
             const pendingStore = tx.objectStore('pending');
-            pendingStore.put({ url, method, body });
+
+            if (body) {
+                pendingStore.put({ url, method, body });
+            } else {
+                pendingStore.put({ url, method });
+            }
         }).catch(error => {
             console.log(error);
-        }).then(function () {
-            console.log('db helper sync time');
-            // register for sync and clean up the form
         });
     }
 }
