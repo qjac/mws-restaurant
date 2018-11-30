@@ -14,12 +14,6 @@ document.addEventListener('DOMContentLoaded', event => {
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
         navigator.serviceWorker.register('/sw.js'); // end register service worker
-
-        // source: https://developers.google.com/web/updates/2015/12/background-sync
-        // Then later, request a one-off sync:
-        navigator.serviceWorker.ready.then(function (swRegistration) {
-            return swRegistration.sync.register('apiSync');
-        });
     }); // end on load
 } // end if (navigator.Serviceworker)
 
