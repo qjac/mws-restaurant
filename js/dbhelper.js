@@ -20,26 +20,25 @@ const dbPromise = idb.open('restaurant-db', 1, upgradeDB => {
  * Common database helper functions.
  */
 class DBHelper {
-    /**
-     * Database URL.
-     * Change this to restaurants.json file location on your server.
-     */
     static get DATABASE_URL () {
-        const port = 1337; // Change this to your server port
-        return `http://localhost:${port}`;
+        // for localhost
+        // const port = 1337; // Change this to your server port
+        // return `http://localhost:${port}`;
+
+        return `https://mws-restaurant-api.herokuapp.com/`;
     }
 
-    /**
+    /*
      * Fetch all restaurants.
      */
 
-    // I went all over for this one.
-    // The idea to do this work here (instead of in sw.js) came from a comment in the forums that I can't find again and attribute properly.
-    // I used doug brown's helper video, the udacity idb course, and about 8 million stack overflow questions
-    // using restaurants.length to check existence came from another student comment
-    // QUESTION? Is there another way to check if object store already exists?
-    // I feel like there should be a more direct way to check if object store exists instead of
-    // returning the data and then checking that, but I couldn't find anything useful to implement.
+    /*
+    I went all over for this one.
+    The idea to do this work here (instead of in sw.js) came from a comment in the forums that I can't find again and attribute properly.
+    I used doug brown's helper video, the udacity idb course, and about 8 million stack overflow questions using restaurants.length to check existence came from another student comment
+    QUESTION? Is there another way to check if object store already exists?
+    I feel like there should be a more direct way to check if object store exists instead of returning the data and then checking that, but I couldn't find anything useful to implement.
+     */
 
     static fetchRestaurants (callback) {
     // look in idb first
