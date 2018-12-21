@@ -20,3 +20,7 @@ In a terminal, check the version of Python you have: python -V. If you have Pyth
 Note - For Windows systems, Python 3.x is installed as python by default. To start a Python 3.x server, you can simply enter python -m http.server 8000.
 With your server running, visit the site: [http://localhost:8000](http://localhost:8000), and look around for a bit to see what the current experience looks like.
 
+---
+## View Online
+[mws-restaurant-site.netlify.com](https://mws-restaurant-site.netlify.com) 
+
