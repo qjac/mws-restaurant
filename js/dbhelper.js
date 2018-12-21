@@ -25,7 +25,7 @@ class DBHelper {
         // const port = 1337; // Change this to your server port
         // return `http://localhost:${port}`;
 
-        return `https://mws-restaurant-api.herokuapp.com/`;
+        return `https://mws-restaurant-api.herokuapp.com`;
     }
 
     /*
@@ -35,7 +35,9 @@ class DBHelper {
     /*
     I went all over for this one.
     The idea to do this work here (instead of in sw.js) came from a comment in the forums that I can't find again and attribute properly.
-    I used doug brown's helper video, the udacity idb course, and about 8 million stack overflow questions using restaurants.length to check existence came from another student comment
+    I used doug brown's helper video, the udacity idb course, and about 8 million stack overflow questions.
+    using restaurants.length to check existence came from another student comment
+   
     QUESTION? Is there another way to check if object store already exists?
     I feel like there should be a more direct way to check if object store exists instead of returning the data and then checking that, but I couldn't find anything useful to implement.
      */
