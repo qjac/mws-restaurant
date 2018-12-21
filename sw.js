@@ -29,6 +29,8 @@ self.addEventListener('install', function (event) {
 
 self.addEventListener('fetch', function (event) {
     const requestUrl = new URL(event.request.url);
+    console.log(requestUrl);
+
     if (requestUrl.port !== '1337') {
         // hijack requests!
         event.respondWith(
